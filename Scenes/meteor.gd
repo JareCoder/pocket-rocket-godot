@@ -26,5 +26,5 @@ func _process(delta: float) -> void:
 	position += Vector2(dir_x, 1) * speed * delta
 	rotation_degrees += rotationSpeed * delta
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	print("Ouch!")
