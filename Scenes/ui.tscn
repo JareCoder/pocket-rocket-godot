@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://dupykjwkr6ll"]
+
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="1_qdvrb"]
+[ext_resource type="Texture2D" uid="uid://bb1gxfudh1pqk" path="res://Assets/PNG/UI/playerLife1_blue.png" id="2_nf4gj"]
+
+[node name="UI" type="CanvasLayer" unique_id=1621935616]
+
+[node name="ScoreMargin" type="MarginContainer" parent="." unique_id=195627840]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 15
+
+[node name="Label" type="Label" parent="ScoreMargin" unique_id=1172901828]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.7490196, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_qdvrb")
+theme_override_font_sizes/font_size = 50
+text = "1234"
+
+[node name="HpMargin" type="MarginContainer" parent="." unique_id=879139637]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 109.0
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HpMargin" unique_id=1293884482]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="HpMargin/HBoxContainer" unique_id=1203417384]
+layout_mode = 2
+texture = ExtResource("2_nf4gj")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HpMargin/HBoxContainer" unique_id=449067009]
+layout_mode = 2
+texture = ExtResource("2_nf4gj")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="HpMargin/HBoxContainer" unique_id=842983759]
+layout_mode = 2
+texture = ExtResource("2_nf4gj")
+stretch_mode = 2
