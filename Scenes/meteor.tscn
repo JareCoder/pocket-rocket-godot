@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bc3lamhy785t1"]
 
 [ext_resource type="Texture2D" uid="uid://sjr1uarl4er2" path="res://Assets/PNG/Meteors/big8.png" id="1_5civa"]
-[ext_resource type="Script" uid="uid://b7hqfukj0cerq" path="res://Scenes/meteor.gd" id="1_wm1ig"]
+[ext_resource type="Script" uid="uid://b7hqfukj0cerq" path="res://Scripts/meteor.gd" id="1_mekeu"]
 [ext_resource type="AudioStream" uid="uid://10vcykllsyrw" path="res://Audio/SFX/sfx_laser2.ogg" id="3_bgiwl"]
 [ext_resource type="Texture2D" uid="uid://dtdc13lt1r8bd" path="res://Assets/PNG/Lasers/laserBlue08.png" id="4_7hap5"]
 [ext_resource type="Texture2D" uid="uid://dyeyria6eioa" path="res://Assets/PNG/Lasers/laserBlue09.png" id="6_kgtfb"]
@@ -26,7 +26,7 @@ animations = [{
 [node name="Meteor" type="Area2D" unique_id=1238857726]
 collision_layer = 2
 collision_mask = 9
-script = ExtResource("1_wm1ig")
+script = ExtResource("1_mekeu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2073086307]
 texture = ExtResource("1_5civa")

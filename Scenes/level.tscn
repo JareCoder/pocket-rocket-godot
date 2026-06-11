@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bhw620drbjy3r"]
 
+[ext_resource type="Script" uid="uid://dd6a2bpm43euq" path="res://Scripts/level.gd" id="1_754fn"]
 [ext_resource type="PackedScene" uid="uid://7hoy11555ojb" path="res://Scenes/player.tscn" id="1_tumq0"]
-[ext_resource type="Script" path="res://Scenes/level.gd" id="1_wqkje"]
 [ext_resource type="Texture2D" uid="uid://mnlem4e4hrwj" path="res://Assets/Backgrounds/darkPurple.png" id="2_k5f4k"]
 [ext_resource type="PackedScene" uid="uid://dupykjwkr6ll" path="res://Scenes/ui.tscn" id="4_81xng"]
 [ext_resource type="AudioStream" uid="uid://bxegqvyi131nd" path="res://Audio/Music/Aylex - This Is Phonk.mp3" id="5_wqkje"]
@@ -29,7 +29,7 @@ stream_2/stream = ExtResource("7_bvt00")
 stream_3/stream = ExtResource("8_oqgf2")
 
 [node name="Level" type="Node2D" unique_id=676947357]
-script = ExtResource("1_wqkje")
+script = ExtResource("1_754fn")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=536806257]
 position = Vector2(579.949, 327.625)

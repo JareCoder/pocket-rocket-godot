@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d16d4e2dbp48w"]
 
-[ext_resource type="Script" uid="uid://w1wimbl6c46i" path="res://Scenes/game_over.gd" id="1_ek8ke"]
+[ext_resource type="Script" uid="uid://w1wimbl6c46i" path="res://Scripts/game_over.gd" id="1_14u15"]
 [ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="1_ojehl"]
 [ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="2_8fo1c"]
 [ext_resource type="AudioStream" uid="uid://br1b16ofjp3vi" path="res://Audio/SFX/sfx_lose.ogg" id="4_eoghk"]
@@ -13,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ek8ke")
+script = ExtResource("1_14u15")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1183771443]
 layout_mode = 1
