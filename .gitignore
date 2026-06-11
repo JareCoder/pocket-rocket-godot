@@ -1,3 +1,36 @@
 # Godot 4+ specific ignores
 .godot/
-/android/
+.import/
+export.json
+export_presets.cfg
+
+# Godot-specific editor/user files
+.obj/
+*.log
+*.import
+*.cache
+
+# Build folders
+bin/
+build/
+dist/
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Version Control / IDE folders
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Misc
+*.bak
+*.tmp
