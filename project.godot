@@ -15,6 +15,14 @@ run/main_scene="uid://bhw620drbjy3r"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://cim6dqichwduk"
 
+[autoload]
+
+Global="*uid://c1ycp8d1nhap4"
+
+[global_group]
+
+ui=""
+
 [input]
 
 left={

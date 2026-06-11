@@ -4,6 +4,8 @@ var rotationSpeed: int
 var speed: int
 var dir_x: float
 
+signal collision
+
 func _ready():
 	var rng := RandomNumberGenerator.new()
 	
@@ -27,4 +29,4 @@ func _process(delta: float) -> void:
 	rotation_degrees += rotationSpeed * delta
 
 func _on_body_entered(_body: Node2D) -> void:
-	print("Ouch!")
+	collision.emit()

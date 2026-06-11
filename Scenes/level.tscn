@@ -29,17 +29,17 @@ metadata/_edit_lock_ = true
 [node name="Stars" type="Node2D" parent="." unique_id=1972648845]
 
 [node name="Player" parent="." unique_id=1898922451 instance=ExtResource("1_tumq0")]
-position = Vector2(76, 316)
+position = Vector2(580, 405)
 
 [node name="Borders" type="Node2D" parent="." unique_id=856792296]
-metadata/_edit_lock_ = true
 
 [node name="TopWall2" type="StaticBody2D" parent="Borders" unique_id=1761991604]
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopWall2" unique_id=646236673]
-position = Vector2(563, -24)
+position = Vector2(586, -24)
 shape = SubResource("RectangleShape2D_wqkje")
+metadata/_edit_lock_ = true
 
 [node name="RightWall" type="StaticBody2D" parent="Borders" unique_id=32199291]
 collision_layer = 4
@@ -47,6 +47,7 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightWall" unique_id=1246988319]
 position = Vector2(1177, 329)
 shape = SubResource("RectangleShape2D_6phgx")
+metadata/_edit_lock_ = true
 
 [node name="LeftWall" type="StaticBody2D" parent="Borders" unique_id=130413956]
 collision_layer = 4
@@ -54,6 +55,7 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftWall" unique_id=1432399610]
 position = Vector2(-20, 335)
 shape = SubResource("RectangleShape2D_81xng")
+metadata/_edit_lock_ = true
 
 [node name="BotWall" type="StaticBody2D" parent="Borders" unique_id=146047284]
 collision_layer = 4
@@ -61,6 +63,7 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BotWall" unique_id=879972332]
 position = Vector2(580, 674)
 shape = SubResource("RectangleShape2D_0f350")
+metadata/_edit_lock_ = true
 
 [node name="MeteorTimer" type="Timer" parent="." unique_id=407165774]
 wait_time = 0.25
