@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://calovjmjqk4ae" path="res://Scenes/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://bm3jmme60mo8f" path="res://Assets/PNG/playerShip1_blue.png" id="1_v0iea"]
+[ext_resource type="AudioStream" uid="uid://w8xdg0xbhvyx" path="res://Audio/sfx_laser1.ogg" id="3_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://clod8nwujx5kv" path="res://Audio/sfx_twoTone.ogg" id="4_vgqql"]
 
 [node name="Player" type="CharacterBody2D" unique_id=777279606]
 collision_mask = 6
@@ -18,5 +20,12 @@ position = Vector2(0, -25)
 
 [node name="ShootCooldownTimer" type="Timer" parent="." unique_id=1781673757]
 wait_time = 0.5
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="." unique_id=1872161790]
+stream = ExtResource("3_6t5aa")
+
+[node name="DamageSound" type="AudioStreamPlayer2D" parent="." unique_id=322244812]
+stream = ExtResource("4_vgqql")
+pitch_scale = 0.34
 
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]

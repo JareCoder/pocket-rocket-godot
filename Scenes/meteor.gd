@@ -5,6 +5,7 @@ var speed: int
 var dir_x: float
 
 signal collision
+var can_collide: bool = true
 
 func _ready():
 	var rng := RandomNumberGenerator.new()
@@ -29,10 +30,17 @@ func _process(delta: float) -> void:
 	rotation_degrees += rotationSpeed * delta
 
 func _on_body_entered(_body: Node2D) -> void:
-	collision.emit()
+	if can_collide:
+		collision.emit()
 
 
 func _on_area_entered(area: Area2D) -> void:
 	# Only Area2D in the game is the laser so no need for extra checks. Remove that and this meteor.
 	area.queue_free()
+	$ExplosionSound.play()
+	# Hide meteor so sound can play before destroying
+	$Sprite2D.hide()
+	can_collide = false
+	set_collision_mask(0)
+	await get_tree().create_timer(0.5).timeout
 	queue_free()

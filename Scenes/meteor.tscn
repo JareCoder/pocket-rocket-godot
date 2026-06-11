@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://sjr1uarl4er2" path="res://Assets/PNG/Meteors/big8.png" id="1_5civa"]
 [ext_resource type="Script" uid="uid://b7hqfukj0cerq" path="res://Scenes/meteor.gd" id="1_wm1ig"]
+[ext_resource type="AudioStream" uid="uid://10vcykllsyrw" path="res://Audio/sfx_laser2.ogg" id="3_bgiwl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5civa"]
 radius = 43.046486
@@ -16,6 +17,10 @@ texture = ExtResource("1_5civa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1429583812]
 shape = SubResource("CircleShape2D_5civa")
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="." unique_id=2107330763]
+stream = ExtResource("3_bgiwl")
+pitch_scale = 0.22
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
