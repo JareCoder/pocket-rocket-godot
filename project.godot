@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="space_shooty"
-run/main_scene="uid://bhw620drbjy3r"
+run/main_scene="uid://dwfyxsoajdevl"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://cim6dqichwduk"
 

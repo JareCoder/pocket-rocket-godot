@@ -40,7 +40,7 @@ metadata/_edit_lock_ = true
 [node name="Stars" type="Node2D" parent="." unique_id=1972648845]
 
 [node name="Player" parent="." unique_id=1898922451 instance=ExtResource("1_tumq0")]
-position = Vector2(580, 405)
+position = Vector2(580, 558)
 
 [node name="Borders" type="Node2D" parent="." unique_id=856792296]
 

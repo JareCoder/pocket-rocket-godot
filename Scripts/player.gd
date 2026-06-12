@@ -7,7 +7,6 @@ signal laser(pos)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	position = Vector2(100, 100)
 	onCooldown = false
 
 

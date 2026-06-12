@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://dwfyxsoajdevl"]
+
+[ext_resource type="Script" uid="uid://dard202gtmf3u" path="res://Scripts/start_menu.gd" id="1_a43kq"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="1_juhg0"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="1_m6uer"]
+[ext_resource type="Texture2D" uid="uid://bm3jmme60mo8f" path="res://Assets/PNG/playerShip1_blue.png" id="3_a43kq"]
+[ext_resource type="AudioStream" uid="uid://fankdpirdj5w" path="res://Audio/Music/Calima - Usual Rigmarole.mp3" id="5_626he"]
+
+[node name="StartMenu" type="Control" unique_id=856087407]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_a43kq")
+
+[node name="Background" type="TextureRect" parent="." unique_id=525432957]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_m6uer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=895608931]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -532.0
+offset_top = -116.0
+offset_right = -84.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=515735597]
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+text = "Play"
+alignment = 0
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=92850928]
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+text = "Options"
+alignment = 0
+
+[node name="LeaderboardButton" type="Button" parent="VBoxContainer" unique_id=1494813305]
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+disabled = true
+text = "Leaderboard (soon TM)"
+alignment = 0
+icon_alignment = 2
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=718202008]
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+text = "Credits"
+alignment = 0
+
+[node name="ShipImage" type="TextureRect" parent="." unique_id=1466837433]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 153.0
+offset_top = -120.0
+offset_right = 472.43994
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_a43kq")
+
+[node name="Label" type="Label" parent="." unique_id=1309226093]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -374.5
+offset_top = 64.0
+offset_right = 374.5
+offset_bottom = 151.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 63
+text = "Space Game Placeholder"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1208103811]
+stream = ExtResource("5_626he")
+volume_db = -25.0
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
