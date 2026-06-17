@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c5xrh7y1xut6m" path="res://Scripts/ui.gd" id="1_nf4gj"]
 [ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="1_qdvrb"]
+[ext_resource type="Texture2D" uid="uid://b4ewvue840b55" path="res://Assets/PNG/Power-ups/shield_silver.png" id="3_2246s"]
+[ext_resource type="Texture2D" uid="uid://bb1gxfudh1pqk" path="res://Assets/PNG/UI/playerLife1_blue.png" id="3_nf4gj"]
 
 [node name="UI" type="CanvasLayer" unique_id=1621935616 groups=["ui"]]
 script = ExtResource("1_nf4gj")
@@ -23,7 +25,7 @@ theme_override_fonts/font = ExtResource("1_qdvrb")
 theme_override_font_sizes/font_size = 50
 text = "0"
 
-[node name="HpMargin" type="MarginContainer" parent="." unique_id=879139637]
+[node name="BuffersMargin" type="MarginContainer" parent="." unique_id=879139637]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -33,11 +35,44 @@ grow_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HpBoxContainer" type="HBoxContainer" parent="HpMargin" unique_id=1293884482]
+[node name="VBuffersContainer" type="VBoxContainer" parent="BuffersMargin" unique_id=1054941861]
+layout_mode = 2
+
+[node name="ShieldContainer" type="HBoxContainer" parent="BuffersMargin/VBuffersContainer" unique_id=615349262]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldContainer" unique_id=833393105]
+layout_mode = 2
+texture = ExtResource("3_2246s")
+
+[node name="TextureRect2" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldContainer" unique_id=144874867]
+layout_mode = 2
+texture = ExtResource("3_2246s")
+
+[node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldContainer" unique_id=105603070]
+layout_mode = 2
+texture = ExtResource("3_2246s")
+
+[node name="HpContainer" type="HBoxContainer" parent="BuffersMargin/VBuffersContainer" unique_id=1293884482]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=854349187]
+layout_mode = 2
+texture = ExtResource("3_nf4gj")
+
+[node name="TextureRect2" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=707505552]
+layout_mode = 2
+texture = ExtResource("3_nf4gj")
+
+[node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=1001286794]
+layout_mode = 2
+texture = ExtResource("3_nf4gj")
 
 [node name="ScoreTimer" type="Timer" parent="." unique_id=1387659567]
 autostart = true

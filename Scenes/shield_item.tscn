@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dnmmp45i4uflx"]
+
+[ext_resource type="Script" uid="uid://df6t55804ve6o" path="res://Scripts/shield_item.gd" id="1_6djvc"]
+[ext_resource type="Texture2D" uid="uid://b4ewvue840b55" path="res://Assets/PNG/Power-ups/shield_silver.png" id="1_fyt41"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fyt41"]
+radius = 14.0
+
+[node name="ShieldItem" type="Area2D" unique_id=1749242227]
+collision_layer = 16
+script = ExtResource("1_6djvc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1784722635]
+texture = ExtResource("1_fyt41")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=671474338]
+position = Vector2(0, -0.5)
+shape = SubResource("CapsuleShape2D_fyt41")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

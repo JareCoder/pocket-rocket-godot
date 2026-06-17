@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://7hoy11555ojb" path="res://Scenes/player.tscn" id="1_tumq0"]
 [ext_resource type="Texture2D" uid="uid://mnlem4e4hrwj" path="res://Assets/Backgrounds/darkPurple.png" id="2_k5f4k"]
 [ext_resource type="PackedScene" uid="uid://dupykjwkr6ll" path="res://Scenes/ui.tscn" id="4_81xng"]
+[ext_resource type="Texture2D" uid="uid://j0wrtcx1udvm" path="res://Assets/PNG/Effects/shield3.png" id="4_bvt00"]
 [ext_resource type="AudioStream" uid="uid://bxegqvyi131nd" path="res://Audio/Music/Aylex - This Is Phonk.mp3" id="5_wqkje"]
 [ext_resource type="AudioStream" uid="uid://tk2ugiedsnc6" path="res://Audio/Music/Walen - HEADPHONK.mp3" id="6_754fn"]
 [ext_resource type="AudioStream" uid="uid://bvnhjsgyqgq6d" path="res://Audio/Music/Aylex - Off Road.mp3" id="7_bvt00"]
@@ -41,6 +42,11 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." unique_id=1898922451 instance=ExtResource("1_tumq0")]
 position = Vector2(580, 558)
+
+[node name="Shield" type="Sprite2D" parent="Player" unique_id=1687664994]
+visible = false
+position = Vector2(0, 6)
+texture = ExtResource("4_bvt00")
 
 [node name="Borders" type="Node2D" parent="." unique_id=856792296]
 
@@ -91,6 +97,13 @@ stream = SubResource("AudioStreamRandomizer_qxfql")
 volume_db = -25.0
 autoplay = true
 
+[node name="ShieldSpawnTimer" type="Timer" parent="." unique_id=1314545124]
+wait_time = 5.0
+autostart = true
+
+[node name="ShieldItems" type="Node2D" parent="." unique_id=668497801]
+
 [connection signal="laser" from="Player" to="." method="_on_player_laser"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
+[connection signal="timeout" from="ShieldSpawnTimer" to="." method="_on_shield_spawn_timer_timeout"]

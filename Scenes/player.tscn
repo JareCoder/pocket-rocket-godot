@@ -44,7 +44,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=777279606]
-collision_mask = 6
+collision_mask = 22
 script = ExtResource("1_3smsa")
 
 [node name="FireAnimation" type="AnimatedSprite2D" parent="." unique_id=934063452]
