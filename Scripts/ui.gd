@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 static var hpTexture = load("res://Assets/PNG/UI/playerLife1_blue.png")
-static var shieldTexture = load("res://Assets/PNG/Power-ups/shield_silver.png")
+static var shieldTexture = load("res://Assets/PNG/Power-ups/shield_gold.png")
 var seconds_elapsed := 0
 
 func set_health(amount):

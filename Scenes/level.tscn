@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://tk2ugiedsnc6" path="res://Audio/Music/Walen - HEADPHONK.mp3" id="6_754fn"]
 [ext_resource type="AudioStream" uid="uid://bvnhjsgyqgq6d" path="res://Audio/Music/Aylex - Off Road.mp3" id="7_bvt00"]
 [ext_resource type="AudioStream" uid="uid://bhumk7lakhky7" path="res://Audio/Music/Aylex - LOUD.mp3" id="8_oqgf2"]
+[ext_resource type="Script" uid="uid://dxauyra6j604v" path="res://Scripts/music_player.gd" id="10_oqgf2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqkje"]
 size = Vector2(1212, 48)
@@ -44,7 +45,6 @@ metadata/_edit_lock_ = true
 position = Vector2(580, 558)
 
 [node name="Shield" type="Sprite2D" parent="Player" unique_id=1687664994]
-visible = false
 position = Vector2(0, 6)
 texture = ExtResource("4_bvt00")
 
@@ -96,14 +96,16 @@ autostart = true
 stream = SubResource("AudioStreamRandomizer_qxfql")
 volume_db = -25.0
 autoplay = true
+script = ExtResource("10_oqgf2")
 
-[node name="ShieldSpawnTimer" type="Timer" parent="." unique_id=1314545124]
+[node name="ItemSpawnTimer" type="Timer" parent="." unique_id=1314545124]
 wait_time = 5.0
 autostart = true
 
-[node name="ShieldItems" type="Node2D" parent="." unique_id=668497801]
+[node name="BonusItems" type="Node2D" parent="." unique_id=668497801]
 
 [connection signal="laser" from="Player" to="." method="_on_player_laser"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
-[connection signal="timeout" from="ShieldSpawnTimer" to="." method="_on_shield_spawn_timer_timeout"]
+[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]
+[connection signal="timeout" from="ItemSpawnTimer" to="." method="_on_item_spawn_timer_timeout"]

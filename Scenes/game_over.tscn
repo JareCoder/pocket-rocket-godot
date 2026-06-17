@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="2_8fo1c"]
 [ext_resource type="AudioStream" uid="uid://br1b16ofjp3vi" path="res://Audio/SFX/sfx_lose.ogg" id="4_eoghk"]
 [ext_resource type="AudioStream" uid="uid://fankdpirdj5w" path="res://Audio/Music/Calima - Usual Rigmarole.mp3" id="5_14u15"]
+[ext_resource type="Script" uid="uid://dxauyra6j604v" path="res://Scripts/music_player.gd" id="6_j3ryr"]
 
 [node name="GameOver" type="Control" unique_id=652175965]
 layout_mode = 3
@@ -78,3 +79,6 @@ autoplay = true
 stream = ExtResource("5_14u15")
 volume_db = -25.0
 autoplay = true
+script = ExtResource("6_j3ryr")
+
+[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]

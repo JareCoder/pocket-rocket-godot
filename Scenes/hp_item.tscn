@@ -1,18 +1,18 @@
-[gd_scene format=3 uid="uid://dnmmp45i4uflx"]
+[gd_scene format=3 uid="uid://c0p0ehkicg0af"]
 
-[ext_resource type="Script" uid="uid://df6t55804ve6o" path="res://Scripts/bonus_item.gd" id="1_6djvc"]
-[ext_resource type="Texture2D" uid="uid://djw38eg10jrr" path="res://Assets/PNG/Power-ups/shield_gold.png" id="2_6djvc"]
+[ext_resource type="Script" uid="uid://df6t55804ve6o" path="res://Scripts/bonus_item.gd" id="1_84rp0"]
+[ext_resource type="Texture2D" uid="uid://6iesspxh0155" path="res://Assets/PNG/Power-ups/pill_blue.png" id="2_84rp0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fyt41"]
 radius = 12.0
 height = 26.0
 
-[node name="ShieldItem" type="Area2D" unique_id=1749242227]
+[node name="HpItem" type="Area2D" unique_id=1749242227]
 collision_layer = 16
-script = ExtResource("1_6djvc")
+script = ExtResource("1_84rp0")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1784722635]
-texture = ExtResource("2_6djvc")
+texture = ExtResource("2_84rp0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=671474338]
 position = Vector2(0, -0.5)

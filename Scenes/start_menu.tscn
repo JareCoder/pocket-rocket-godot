@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="1_m6uer"]
 [ext_resource type="Texture2D" uid="uid://bm3jmme60mo8f" path="res://Assets/PNG/playerShip1_blue.png" id="3_a43kq"]
 [ext_resource type="AudioStream" uid="uid://fankdpirdj5w" path="res://Audio/Music/Calima - Usual Rigmarole.mp3" id="5_626he"]
+[ext_resource type="Script" uid="uid://dxauyra6j604v" path="res://Scripts/music_player.gd" id="6_8u0lp"]
 
 [node name="StartMenu" type="Control" unique_id=856087407]
 layout_mode = 3
@@ -98,8 +99,10 @@ text = "Space Game Placeholder"
 stream = ExtResource("5_626he")
 volume_db = -25.0
 autoplay = true
+script = ExtResource("6_8u0lp")
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]
