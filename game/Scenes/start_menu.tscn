@@ -103,60 +103,78 @@ script = ExtResource("6_8u0lp")
 
 [node name="UsernamePanel" type="PanelContainer" parent="." unique_id=200000001]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -150.0
-offset_right = 220.0
-offset_bottom = 150.0
+offset_left = -264.68
+offset_top = -172.71
+offset_right = 175.31665
+offset_bottom = 127.28998
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.2, 1.2)
 
-[node name="VBox" type="VBoxContainer" parent="UsernamePanel" unique_id=200000002]
+[node name="MarginContainer" type="MarginContainer" parent="UsernamePanel" unique_id=1002843829]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="TitleLabel" type="Label" parent="UsernamePanel/VBox" unique_id=200000003]
+[node name="VBox" type="VBoxContainer" parent="UsernamePanel/MarginContainer" unique_id=200000002]
 layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 64
+
+[node name="TitleLabel" type="Label" parent="UsernamePanel/MarginContainer/VBox" unique_id=200000003]
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("7_font1")
 theme_override_font_sizes/font_size = 20
 text = "Enter your pilot name"
 horizontal_alignment = 1
 
-[node name="UsernameInput" type="LineEdit" parent="UsernamePanel/VBox" unique_id=200000004]
+[node name="MarginContainer" type="MarginContainer" parent="UsernamePanel/MarginContainer/VBox" unique_id=1766266691]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UsernamePanel/MarginContainer/VBox/MarginContainer" unique_id=384266604]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UsernameInput" type="LineEdit" parent="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer" unique_id=200000004]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("8_font2")
 theme_override_font_sizes/font_size = 18
 placeholder_text = "Pilot name..."
+alignment = 1
 max_length = 32
 
-[node name="UsernameError" type="Label" parent="UsernamePanel/VBox" unique_id=200000005]
+[node name="UsernameError" type="Label" parent="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer" unique_id=200000005]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.6, 0.2, 1)
 theme_override_fonts/font = ExtResource("8_font2")
 theme_override_font_sizes/font_size = 14
-text = ""
+horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="HBoxButtons" type="HBoxContainer" parent="UsernamePanel/VBox" unique_id=200000006]
+[node name="HBoxButtons" type="HBoxContainer" parent="UsernamePanel/MarginContainer/VBox" unique_id=200000006]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="BackButton" type="Button" parent="UsernamePanel/VBox/HBoxButtons" unique_id=200000007]
+[node name="BackButton" type="Button" parent="UsernamePanel/MarginContainer/VBox/HBoxButtons" unique_id=200000007]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_juhg0")
-text = "← Back"
+text = "Back"
 
-[node name="ConfirmButton" type="Button" parent="UsernamePanel/VBox/HBoxButtons" unique_id=200000008]
+[node name="ConfirmButton" type="Button" parent="UsernamePanel/MarginContainer/VBox/HBoxButtons" unique_id=200000008]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -168,6 +186,6 @@ text = "Let's go!"
 [connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]
-[connection signal="pressed" from="UsernamePanel/VBox/HBoxButtons/ConfirmButton" to="." method="_on_confirm_username_pressed"]
-[connection signal="pressed" from="UsernamePanel/VBox/HBoxButtons/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="text_submitted" from="UsernamePanel/VBox/UsernameInput" to="." method="_on_confirm_username_pressed"]
+[connection signal="text_submitted" from="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer/UsernameInput" to="." method="_on_confirm_username_pressed"]
+[connection signal="pressed" from="UsernamePanel/MarginContainer/VBox/HBoxButtons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="UsernamePanel/MarginContainer/VBox/HBoxButtons/ConfirmButton" to="." method="_on_confirm_username_pressed"]
