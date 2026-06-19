@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://leaderboard001"]
+
+[ext_resource type="Script" path="res://Scripts/leaderboard.gd" id="1_lb"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="2_lb"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="3_lb"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="4_lb"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="5_lb"]
+
+[node name="Leaderboard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lb")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_lb")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(620.0, 0.0)
+theme_override_constants/separation = 14
+
+[node name="Title" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lb")
+theme_override_font_sizes/font_size = 42
+text = "Leaderboard"
+horizontal_alignment = 1
+
+[node name="HeaderRow" type="HBoxContainer" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="RankHeader" type="Label" parent="CenterContainer/VBox/HeaderRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(70.0, 0.0)
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("3_lb")
+theme_override_font_sizes/font_size = 16
+text = "RANK"
+
+[node name="NameHeader" type="Label" parent="CenterContainer/VBox/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("3_lb")
+theme_override_font_sizes/font_size = 16
+text = "PILOT"
+
+[node name="ScoreHeader" type="Label" parent="CenterContainer/VBox/HeaderRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(90.0, 0.0)
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("3_lb")
+theme_override_font_sizes/font_size = 16
+text = "TIME"
+horizontal_alignment = 2
+
+[node name="Separator" type="HSeparator" parent="CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.3, 1)
+theme_override_fonts/font = ExtResource("3_lb")
+theme_override_font_sizes/font_size = 18
+text = "Loading..."
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0.0, 380.0)
+horizontal_scroll_mode = 0
+
+[node name="EntriesContainer" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="PaginationRow" type="HBoxContainer" parent="CenterContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="PrevButton" type="Button" parent="CenterContainer/VBox/PaginationRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_lb")
+text = "< Prev"
+disabled = true
+
+[node name="PageLabel" type="Label" parent="CenterContainer/VBox/PaginationRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(120.0, 0.0)
+theme_override_fonts/font = ExtResource("3_lb")
+theme_override_font_sizes/font_size = 18
+text = "Page 1 / 1"
+horizontal_alignment = 1
+
+[node name="NextButton" type="Button" parent="CenterContainer/VBox/PaginationRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_lb")
+text = "Next >"
+disabled = true
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme = ExtResource("5_lb")
+text = "← Back to Menu"
+
+[connection signal="pressed" from="CenterContainer/VBox/PaginationRow/PrevButton" to="." method="_on_prev_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/PaginationRow/NextButton" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_pressed"]

@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bm3jmme60mo8f" path="res://Assets/PNG/playerShip1_blue.png" id="3_a43kq"]
 [ext_resource type="AudioStream" uid="uid://fankdpirdj5w" path="res://Audio/Music/Calima - Usual Rigmarole.mp3" id="5_626he"]
 [ext_resource type="Script" uid="uid://dxauyra6j604v" path="res://Scripts/music_player.gd" id="6_8u0lp"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="7_font1"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="8_font2"]
 
 [node name="StartMenu" type="Control" unique_id=856087407]
 layout_mode = 3
@@ -56,10 +58,8 @@ alignment = 0
 [node name="LeaderboardButton" type="Button" parent="VBoxContainer" unique_id=1494813305]
 layout_mode = 2
 theme = ExtResource("1_juhg0")
-disabled = true
-text = "Leaderboard (soon TM)"
+text = "Leaderboard"
 alignment = 0
-icon_alignment = 2
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=718202008]
 layout_mode = 2
@@ -101,8 +101,73 @@ volume_db = -25.0
 autoplay = true
 script = ExtResource("6_8u0lp")
 
+[node name="UsernamePanel" type="PanelContainer" parent="." unique_id=200000001]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -150.0
+offset_right = 220.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="UsernamePanel" unique_id=200000002]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TitleLabel" type="Label" parent="UsernamePanel/VBox" unique_id=200000003]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_font1")
+theme_override_font_sizes/font_size = 20
+text = "Enter your pilot name"
+horizontal_alignment = 1
+
+[node name="UsernameInput" type="LineEdit" parent="UsernamePanel/VBox" unique_id=200000004]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_font2")
+theme_override_font_sizes/font_size = 18
+placeholder_text = "Pilot name..."
+max_length = 32
+
+[node name="UsernameError" type="Label" parent="UsernamePanel/VBox" unique_id=200000005]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.2, 1)
+theme_override_fonts/font = ExtResource("8_font2")
+theme_override_font_sizes/font_size = 14
+text = ""
+autowrap_mode = 3
+
+[node name="HBoxButtons" type="HBoxContainer" parent="UsernamePanel/VBox" unique_id=200000006]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="UsernamePanel/VBox/HBoxButtons" unique_id=200000007]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_juhg0")
+text = "← Back"
+
+[node name="ConfirmButton" type="Button" parent="UsernamePanel/VBox/HBoxButtons" unique_id=200000008]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_juhg0")
+text = "Let's go!"
+
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]
+[connection signal="pressed" from="UsernamePanel/VBox/HBoxButtons/ConfirmButton" to="." method="_on_confirm_username_pressed"]
+[connection signal="pressed" from="UsernamePanel/VBox/HBoxButtons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="text_submitted" from="UsernamePanel/VBox/UsernameInput" to="." method="_on_confirm_username_pressed"]

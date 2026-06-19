@@ -17,7 +17,8 @@ config/icon="uid://cim6dqichwduk"
 
 [autoload]
 
-Global="*uid://c1ycp8d1nhap4"
+Api="*res://Global/api.gd"
+Global="*uid://xdmfoadu4w44"
 
 [global_group]
 

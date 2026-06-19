@@ -36,6 +36,7 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1894186266]
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="GameOver" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1622221218]
 layout_mode = 2
@@ -45,10 +46,31 @@ text = "Game Over"
 horizontal_alignment = 1
 
 [node name="Score" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1857315898]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_ojehl")
 theme_override_font_sizes/font_size = 30
 text = "Score: "
+horizontal_alignment = 1
+
+[node name="RankLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=300000001]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 1, 0.6, 1)
+theme_override_fonts/font = ExtResource("1_ojehl")
+theme_override_font_sizes/font_size = 22
+text = ""
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=300000002]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.3, 1)
+theme_override_fonts/font = ExtResource("2_8fo1c")
+theme_override_font_sizes/font_size = 16
+text = ""
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2088484806]
