@@ -94,7 +94,9 @@ func _on_score_timer_timeout() -> void:
 ```
 
 **Score = integer seconds survived.** This is the value sent to the backend on game over.
-The leaderboard displays it formatted as `m:ss` (e.g. 312 → `5:12`).
+The leaderboard sorts by `score DESC` and displays both `score` (raw integer) and `time_played` (formatted as `m:ss`, e.g. 312 → `5:12`) as separate columns.
+
+`time_played` is **not sent by the client** — the backend computes it from `startedAt` (in the session JWT) and the server clock when `/game/end` is called. Future changes to the scoring formula will only need to update the score value; `time_played` remains an authoritative measure of session duration.
 
 ## Physics layers
 
@@ -147,7 +149,7 @@ start_menu.tscn → leaderboard.tscn  (Leaderboard button)
 - **`game_start.gd`**: Owns all session-start logic. On `_ready`, if a saved username exists (restart path) it calls `Api.start_game()` immediately and skips the UI; otherwise it shows the username panel, validates input, and then calls `Api.start_game()`. On backend failure it shows a 1.5 s warning then proceeds (graceful degradation). After the token is stored in `Global.session_token` the scene transitions to `level.tscn`.
 - **`level.gd`**: spawns meteors and bonus items, handles health and shield state.
 - **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission. On Space/Enter navigates to `game_start.tscn` (not directly to `level.tscn`).
-- **`leaderboard.gd`**: loads page 1 on `_ready`, renders rows with gold/silver/bronze for the top 3, supports Prev/Next pagination.
+- **`leaderboard.gd`**: loads page 1 on `_ready`, renders rows with gold/silver/bronze for the top 3, supports Prev/Next pagination. Each row shows `score` as a plain integer and `time_played` formatted as `m:ss`.
 
 ## Conventions
 

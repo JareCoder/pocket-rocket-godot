@@ -93,8 +93,12 @@ Always use the prepared statements — **never construct SQL strings** with user
 
 Two tables:
 
-- **`scores`** — leaderboard entries `(id, username, score, created_at)`
+- **`scores`** — leaderboard entries `(id, username, score, time_played, created_at)`
 - **`sessions`** — one row per game session, tracks `used` flag and expiry
+
+`score` and `time_played` are **separate fields**:
+- `score` — the game's point value, sent by the client via `POST /game/end`.
+- `time_played` — wall-clock seconds elapsed since session start, computed server-side at `/game/end` from `startedAt` in the JWT. The client never sends this value.
 
 ## Anti-cheat logic (important — do not weaken)
 
@@ -106,7 +110,9 @@ Two tables:
 4. `score ≤ floor((now − startedAt) / 1000) + GRACE_SECONDS (10s)`
 5. `score ≤ SCORE_CAP`
 
-Step 4 is the core check: because the game scores by seconds survived, a claimed score cannot exceed real elapsed wall-clock time. Do not remove or relax this check without a corresponding change to the game's scoring system.
+Step 4 is the core check: because the game currently scores by seconds survived, a claimed score cannot exceed real elapsed wall-clock time. Do not remove or relax this check without a corresponding change to the game's scoring system.
+
+The `elapsedSeconds` value computed during step 4 is also written to `scores.time_played`, so `time_played` is always authoritative and uncheateable.
 
 ## Rate limiting
 
