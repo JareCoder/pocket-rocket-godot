@@ -129,7 +129,7 @@ func _default_emoji(id: String) -> String:
 # ── UI Refresh ────────────────────────────────────────────────────────────────
 
 func _refresh_ui() -> void:
-	%FloyonsBalanceLabel.text = "🥮 " + str(Upgrades.get_flyons()) + " Flyons"
+	%FloyonsBalanceLabel.text = str(Upgrades.get_flyons()) + " Flyons"
 	for upg: Dictionary in Upgrades.UPGRADES:
 		_update_card(upg.id)
 
@@ -161,10 +161,10 @@ func _update_card(id: String) -> void:
 	var cost_label: Label = card.find_child("CostLabel", true, false)
 	if cost_label:
 		if current_level >= max_level:
-			cost_label.text = "✅ MAX"
+			cost_label.text = "MAX"
 			cost_label.add_theme_color_override("font_color", Color(0.3, 1.0, 0.5))
 		else:
-			cost_label.text = "🥮 " + str(cost) + " Flyons"
+			cost_label.text = str(cost) + " Flyons"
 			cost_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.2))
 
 	# Update buy button

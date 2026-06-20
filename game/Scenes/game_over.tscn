@@ -82,7 +82,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1.0, 0.85, 0.2, 1)
 theme_override_fonts/font = ExtResource("1_ojehl")
 theme_override_font_sizes/font_size = 22
-text = "🪙 +0 Flyons earned"
+text = "+0 Flyons earned"
 horizontal_alignment = 1
 
 [node name="FloyonsTotalLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=300000012]
@@ -99,7 +99,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_8fo1c")
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.2, 1.0, 0.7, 1)
-text = "🛒 Go to Shop"
+text = "Go to Shop"
 horizontal_alignment = 1
 
 [node name="MainMenuButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=300000003]

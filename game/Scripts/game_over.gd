@@ -21,13 +21,13 @@ func _award_flyons() -> void:
 	var earned:  float = int(Global.score) / divisor
 	Upgrades.add_flyons(earned)
 	Upgrades.save()
-	%FloyonsEarnedLabel.text = "🪙 +" + str(earned) + " Flyons earned"
+	%FloyonsEarnedLabel.text = "+" + str(earned) + " Flyons earned"
 	%FloyonsTotalLabel.text  = "Total: " + str(Upgrades.get_flyons()) + " Flyons"
 
 func _submit_score() -> void:
 	if Global.session_token == "":
 		# No token means the backend was offline at game start — inform player
-		%StatusLabel.text = "⚠ Leaderboard offline — score not saved."
+		%StatusLabel.text = "Leaderboard offline — score not saved."
 		%StatusLabel.visible = true
 		return
 
@@ -41,10 +41,10 @@ func _submit_score() -> void:
 
 	if result.ok:
 		%StatusLabel.visible = false
-		%RankLabel.text = "🏆 Leaderboard rank: #" + str(result.rank)
+		%RankLabel.text = "Leaderboard rank: #" + str(result.rank)
 		%RankLabel.visible = true
 	else:
-		%StatusLabel.text = "⚠ Could not save score: " + result.get("error", "unknown error")
+		%StatusLabel.text = "Could not save score: " + result.get("error", "unknown error")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):

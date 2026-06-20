@@ -78,7 +78,7 @@ func _start_session(username: String) -> void:
 	else:
 		Global.session_token = ""
 		# Show inline warning then proceed — graceful degradation.
-		%UsernameError.text = "⚠ Leaderboard offline — score won't be saved."
+		%UsernameError.text = "Leaderboard offline — score won't be saved."
 		%UsernameError.visible = true
 		await get_tree().create_timer(1.5).timeout
 

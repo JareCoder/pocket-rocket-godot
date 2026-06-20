@@ -26,9 +26,9 @@ func _load_page(page: int) -> void:
 	if not result.ok:
 		var err_msg: String = result.get("error", "unknown error")
 		if err_msg.begins_with("Network error") or err_msg.begins_with("Failed to send"):
-			%StatusLabel.text = "⚠ Leaderboard offline — please try again later."
+			%StatusLabel.text = "Leaderboard offline — please try again later."
 		else:
-			%StatusLabel.text = "⚠ Could not load leaderboard: " + err_msg
+			%StatusLabel.text = "Could not load leaderboard: " + err_msg
 		%StatusLabel.visible = true
 		return
 
