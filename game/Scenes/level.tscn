@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dupykjwkr6ll" path="res://Scenes/ui.tscn" id="4_81xng"]
 [ext_resource type="Texture2D" uid="uid://j0wrtcx1udvm" path="res://Assets/PNG/Effects/shield3.png" id="4_bvt00"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqkje"]
 size = Vector2(1212, 48)
 
@@ -18,8 +17,6 @@ size = Vector2(44, 698)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0f350"]
 size = Vector2(1212, 48)
-
-
 
 [node name="Level" type="Node2D" unique_id=676947357]
 script = ExtResource("1_754fn")
