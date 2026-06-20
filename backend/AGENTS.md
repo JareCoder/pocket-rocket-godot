@@ -47,7 +47,9 @@ Defined in `.env.example`. All are required at runtime:
 |---|---|---|
 | `JWT_SECRET` | HMAC secret for signing session tokens | **none — must be set** |
 | `PORT` | HTTP port | `3000` |
-| `SCORE_CAP` | Max score (seconds) the server will accept | `3600` |
+| `SCORE_CAP` | Max score (points) the server will accept | `50000` |
+| `BASE_SCORE_PER_SECOND` | Score tick points rate per second | `10` |
+| `ITEM_BONUS_GRACE` | Flat grace points budget for popped items | `500` |
 | `PAGE_SIZE` | Default leaderboard page size | `20` |
 | `DB_DIR` | Directory for `scores.db` | `./data` (local) / `/app/data` (Docker) |
 
@@ -107,10 +109,10 @@ Two tables:
 1. Token is a valid, unexpired JWT (signature check)
 2. Session `jti` exists in the `sessions` table
 3. Session has not already been used (`used = 0`)
-4. `score ≤ floor((now − startedAt) / 1000) + GRACE_SECONDS (10s)`
+4. `score ≤ floor((now − startedAt) / 1000) * BASE_SCORE_PER_SECOND + ITEM_BONUS_GRACE + GRACE_SECONDS * BASE_SCORE_PER_SECOND`
 5. `score ≤ SCORE_CAP`
 
-Step 4 is the core check: because the game currently scores by seconds survived, a claimed score cannot exceed real elapsed wall-clock time. Do not remove or relax this check without a corresponding change to the game's scoring system.
+Step 4 is the core check: it validates the claimed score against the elapsed wall-clock time scaled by the base points per second rate, plus a flat buffer for Point Orb pops. Do not remove or relax this check without corresponding changes to the game's scoring system.
 
 The `elapsedSeconds` value computed during step 4 is also written to `scores.time_played`, so `time_played` is always authoritative and uncheateable.
 

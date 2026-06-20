@@ -82,10 +82,13 @@ Plays the start menu, credits, and game-over screens background music. Routes th
 Holds shared game state across scenes.
 
 ```gdscript
-var score: int = 0           # seconds survived; written by ui.gd every second
+var score: int = 0           # total points; written by ui.gd on ticks and item pops
 var session_token: String = ""  # JWT from /game/start; cleared after /game/end
 var username: String = ""    # set by the player in the start menu
+var game_env: String = "production" # "dev" or "production"
 ```
+
+On startup (`_ready`), `Global` reads the `GAME_ENV` environment variable (`OS.get_environment("GAME_ENV")`). If set to `"dev"` or `"development"`, it sets `game_env = "dev"`. If not set, it falls back to `OS.is_debug_build()`, making local editor runs default to `"dev"` and production exports default to `"production"`.
 
 Helper functions:
 - `Global.save_username(name)` — writes to `localStorage` on web; no-op on desktop
@@ -166,16 +169,19 @@ Change this if the port differs. Game and backend run on the same server behind 
 
 ## Scoring system
 
-Score is tracked in `ui.gd` via a `ScoreTimer` node (1-second interval):
+Score is tracked in `ui.gd` via a `ScoreTimer` node (5-second interval):
 
 ```gdscript
 func _on_score_timer_timeout() -> void:
-    seconds_elapsed += 1
-    $ScoreMargin/Label.text = str(seconds_elapsed)
-    Global.score = seconds_elapsed
+	_total_score += POINTS_PER_TICK
+	$ScoreMargin/Label.text = str(_total_score)
+	Global.score = _total_score
 ```
 
-**Score = integer seconds survived.** This is the value sent to the backend on game over.
+**Score = points accumulated during survival + Point Orb bonuses.**
+- Players earn 50 points every 5 seconds.
+- Players can shoot moving Neon Point Orbs 4 times to pop them and earn 50–200 bonus points.
+- The HUD updates the score immediately and synchronizes it to `Global.score` which is sent to the backend on game over.
 The leaderboard sorts by `score DESC` and displays both `score` (raw integer) and `time_played` (formatted as `m:ss`, e.g. 312 → `5:12`) as separate columns.
 
 `time_played` is **not sent by the client** — the backend computes it from `startedAt` (in the session JWT) and the server clock when `/game/end` is called. Future changes to the scoring formula will only need to update the score value; `time_played` remains an authoritative measure of session duration.

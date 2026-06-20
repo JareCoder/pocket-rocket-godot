@@ -14,6 +14,10 @@ var _card_nodes: Dictionary = {}
 func _ready() -> void:
 	_build_cards()
 	_refresh_ui()
+	
+	var is_dev := Global.game_env == "dev"
+	$MarginContainer/VBoxOuter/Footer/GiveFlyonsButton.visible = is_dev
+	$MarginContainer/VBoxOuter/Footer/ClearUpgradesButton.visible = is_dev
 
 # ── Card Generation ───────────────────────────────────────────────────────────
 
