@@ -6,7 +6,7 @@ const { stmts } = require('../db');
 const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-const SCORE_CAP = parseInt(process.env.SCORE_CAP || '3600', 10);
+const SCORE_CAP = parseInt(process.env.SCORE_CAP || '50000', 10);
 // Grace buffer in seconds: allows for network/client latency
 const GRACE_SECONDS = 10;
 // Session TTL: 2 hours in seconds
@@ -92,11 +92,17 @@ router.post('/end', (req, res) => {
   // --- 5. Wall-clock score validation ---
   const now = Date.now();
   const elapsedSeconds = Math.floor((now - startedAt) / 1000);
-  const maxAllowedScore = elapsedSeconds + GRACE_SECONDS;
+  
+  const BASE_SCORE_PER_SECOND = parseInt(process.env.BASE_SCORE_PER_SECOND || '10', 10);
+  const ITEM_BONUS_GRACE = parseInt(process.env.ITEM_BONUS_GRACE || '500', 10);
+  
+  const maxAllowedScore = Math.floor(elapsedSeconds * BASE_SCORE_PER_SECOND)
+                        + ITEM_BONUS_GRACE
+                        + (GRACE_SECONDS * BASE_SCORE_PER_SECOND);
 
   if (scoreInt > maxAllowedScore) {
     return res.status(400).json({
-      error: `Score ${scoreInt} exceeds elapsed time (${elapsedSeconds}s + ${GRACE_SECONDS}s grace).`,
+      error: `Score ${scoreInt} exceeds allowed limit for elapsed time (${elapsedSeconds}s).`,
     });
   }
 

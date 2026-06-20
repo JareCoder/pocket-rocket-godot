@@ -167,6 +167,7 @@ theme_override_font_sizes/font_size = 14
 text = "Song Title - Artist"
 
 [node name="ScoreTimer" type="Timer" parent="." unique_id=1387659567]
+wait_time = 5.0
 autostart = true
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

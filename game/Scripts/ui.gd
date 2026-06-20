@@ -1,8 +1,14 @@
 extends CanvasLayer
 
+# ── Balance constants — edit these to tune gameplay ───────────────────────────
+## Points awarded every TICK_INTERVAL seconds (must match ScoreTimer.wait_time in ui.tscn).
+const POINTS_PER_TICK: int = 50
+# ─────────────────────────────────────────────────────────────────────────────
+
 static var hpTexture = load("res://Assets/PNG/UI/playerLife1_blue.png")
 static var shieldTexture = load("res://Assets/PNG/Power-ups/shield_gold.png")
-var seconds_elapsed := 0
+
+var _total_score: int = 0
 var _popup_tween: Tween = null
 
 func _ready() -> void:
@@ -44,7 +50,15 @@ func set_shield(amount):
 		%ShieldContainer.add_child(text_rect)
 		text_rect.stretch_mode = TextureRect.STRETCH_KEEP
 
+## Called by the ScoreTimer every POINTS_PER_TICK seconds.
 func _on_score_timer_timeout() -> void:
-	seconds_elapsed += 1
-	$ScoreMargin/Label.text = str(seconds_elapsed)
-	Global.score = seconds_elapsed
+	_total_score += POINTS_PER_TICK
+	$ScoreMargin/Label.text = str(_total_score)
+	Global.score = _total_score
+
+## Called via get_tree().call_group('ui', 'add_score', amount)
+## when a points item is popped. Updates the HUD and Global.score immediately.
+func add_score(amount: int) -> void:
+	_total_score += amount
+	$ScoreMargin/Label.text = str(_total_score)
+	Global.score = _total_score

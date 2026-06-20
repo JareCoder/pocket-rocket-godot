@@ -82,7 +82,7 @@ text = "• Shoot Lasers: Spacebar or Left Mouse Button"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_hp")
 theme_override_font_sizes/font_size = 16
-text = "• Items: Items have a chance to spawn every 5 seconds. Shields have a 20% chance and HP pills a 5% chance. Pick them up!"
+text = "• Items: Shields and HP items spawn to protect or heal you. Neon Point Orbs also spawn, drifting sideways across the screen—shoot them 4 times to pop them before they drift offscreen for 50-200 bonus points!"
 autowrap_mode = 3
 
 [node name="Separator1" type="HSeparator" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=240461744]
@@ -99,7 +99,7 @@ text = "LEADERBOARD"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_hp")
 theme_override_font_sizes/font_size = 16
-text = "• Survival Score: Your score is the number of seconds you survive.
+text = "• Scoring: You get 50 points every 5 seconds plus bonus points from popping Point Orbs.
 • Auto-Submit: After a Game Over, your score and total play time are sent to our global public leaderboard.
 • High Ranks: Submit a unique name to claim your spot on the top 3 gold, silver, and bronze podiums!"
 autowrap_mode = 3

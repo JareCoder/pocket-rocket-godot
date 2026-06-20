@@ -7,6 +7,7 @@ var laser_scene: PackedScene = load("res://Scenes/laser.tscn")
 var star_scene: PackedScene = load("res://Scenes/star.tscn")
 var shield_item_scene: PackedScene = load("res://Scenes/shield_item.tscn")
 var hp_item_scene: PackedScene = load("res://Scenes/hp_item.tscn")
+var points_item_scene: PackedScene = load("res://Scenes/points_item.tscn")
 
 var size := Vector2.ZERO
 var rng := RandomNumberGenerator.new()
@@ -135,6 +136,18 @@ func _on_item_spawn_timer_timeout() -> void:
 		var new_hp_item = _spawn_item(hp_item_scene)
 		new_hp_item.connect('collision', _on_hp_item_collision)
 		$BonusItems.add_child(new_hp_item)
+		
+	# Points item: 5% chance of spawning, moves
+	var c := rng.randi_range(0, 19)
+	if (c == 0):
+		var new_points_item = _spawn_item(points_item_scene)
+		# Spawn between halfway (size.y / 2) and the top of the screen (0)
+		new_points_item.position.y = rng.randf_range(18.0, size.y / 2.0)
+		new_points_item.popped.connect(_on_points_item_popped)
+		$BonusItems.add_child(new_points_item)
+
+func _on_points_item_popped(points: int) -> void:
+	get_tree().call_group('ui', 'add_score', points)
 		
 
 func _on_shield_item_collision() -> void:
