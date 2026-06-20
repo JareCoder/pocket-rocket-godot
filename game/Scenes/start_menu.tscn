@@ -5,8 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="1_m6uer"]
 [ext_resource type="Texture2D" uid="uid://bm3jmme60mo8f" path="res://Assets/PNG/playerShip1_blue.png" id="3_a43kq"]
 
-
-
 [node name="StartMenu" type="Control" unique_id=856087407]
 layout_mode = 3
 anchors_preset = 15
@@ -47,16 +45,16 @@ theme = ExtResource("1_juhg0")
 text = "Play"
 alignment = 0
 
-[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=92850928]
-layout_mode = 2
-theme = ExtResource("1_juhg0")
-text = "Options"
-alignment = 0
-
 [node name="LeaderboardButton" type="Button" parent="VBoxContainer" unique_id=1494813305]
 layout_mode = 2
 theme = ExtResource("1_juhg0")
 text = "Leaderboard"
+alignment = 0
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=92850928]
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+text = "Options"
 alignment = 0
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=718202008]
@@ -94,6 +92,6 @@ theme_override_font_sizes/font_size = 63
 text = "Space Game Placeholder"
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
