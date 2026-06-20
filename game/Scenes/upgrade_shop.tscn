@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://sjl513ostyox"]
+
+[ext_resource type="Script" uid="uid://g2kgtuofry30" path="res://Scripts/upgrade_shop.gd" id="1_shopgd"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="2_font_bold"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="3_font_thin"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="4_bg"]
+
+[node name="UpgradeShop" type="Control" unique_id=2125446296]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_shopgd")
+
+[node name="Background" type="TextureRect" parent="." unique_id=948237516]
+modulate = Color(0.25, 0.25, 0.3, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1527021406]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxOuter" type="VBoxContainer" parent="MarginContainer" unique_id=1792155191]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxOuter" unique_id=117731346]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxOuter/Header" unique_id=379357944]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 40
+text = "🚀 UPGRADE SHOP"
+
+[node name="FloyonsBalanceLabel" type="Label" parent="MarginContainer/VBoxOuter/Header" unique_id=270756942]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_fonts/font = ExtResource("2_font_bold")
+theme_override_font_sizes/font_size = 22
+text = "🪙 0 Flyons"
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxOuter" unique_id=841549555]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxOuter" unique_id=1847515933]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UpgradeGrid" type="HFlowContainer" parent="MarginContainer/VBoxOuter/ScrollContainer" unique_id=1607599092]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+
+[node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxOuter" unique_id=1186662648]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxOuter/Footer" unique_id=12988914]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("3_font_thin")
+theme_override_font_sizes/font_size = 20
+text = "← Back to Menu"
+
+[node name="GiveFlyonsButton" type="Button" parent="MarginContainer/VBoxOuter/Footer" unique_id=1828473867]
+custom_minimum_size = Vector2(180, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_fonts/font = ExtResource("3_font_thin")
+theme_override_font_sizes/font_size = 20
+text = "[DEBUG] +100 Flyons"
+
+[node name="ClearUpgradesButton" type="Button" parent="MarginContainer/VBoxOuter/Footer" unique_id=1341257420]
+custom_minimum_size = Vector2(200, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_fonts/font = ExtResource("3_font_thin")
+theme_override_font_sizes/font_size = 20
+text = "[DEBUG] Clear Upgrades"
+
+[connection signal="pressed" from="MarginContainer/VBoxOuter/Footer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxOuter/Footer/GiveFlyonsButton" to="." method="_on_give_flyons_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxOuter/Footer/ClearUpgradesButton" to="." method="_on_clear_upgrades_pressed"]

@@ -22,6 +22,7 @@ Global="*uid://xdmfoadu4w44"
 Settings="*res://Global/settings.gd"
 GameMusic="*res://Global/game_music.gd"
 LobbyMusic="*res://Global/lobby_music.gd"
+Upgrades="*res://Global/upgrades.gd"
 
 [global_group]
 

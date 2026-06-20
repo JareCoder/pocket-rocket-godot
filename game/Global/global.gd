@@ -1,8 +1,11 @@
 extends Node
 
-var score: int = 0
-var session_token: String = ""
-var username: String = ""
+var score: int = 0           # seconds survived; written by ui.gd every second
+var session_token: String = ""  # JWT from /game/start; cleared after /game/end
+var username: String = ""    # set by the player in the start menu
+
+# Flyons balance and upgrade levels live in the Upgrades autoload (Global/upgrades.gd).
+# Do not add them here — keep Global to score/token/username only.
 
 func save_username(name: String) -> void:
 	username = name

@@ -60,6 +60,15 @@ theme_override_font_sizes/font_size = 32
 text = "How to Play"
 alignment = 0
 
+[node name="UpgradesButton" type="Button" parent="VBoxContainer" unique_id=718202009]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 32
+text = "Upgrade Shop"
+alignment = 0
+
 [node name="LeaderboardButton" type="Button" parent="VBoxContainer" unique_id=1494813305]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -120,6 +129,7 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/UpgradesButton" to="." method="_on_upgrades_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

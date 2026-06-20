@@ -1,13 +1,25 @@
 extends CharacterBody2D
 
+# ── Balance constants — edit these to tune gameplay ───────────────────────────
+## Base movement speed (also editable per-instance via the Inspector).
 @export var speed: int = 500
+## How much speed is added per ship_speed upgrade level.
+const SPEED_PER_LEVEL: int = 50
+## Cooldown multiplier applied per fire_rate upgrade level (stacks multiplicatively).
+## 0.9 = 10% faster per level. Lower = bigger improvement per level.
+const FIRE_RATE_MULTIPLIER: float = 0.90
+# ─────────────────────────────────────────────────────────────────────────────
+
 var onCooldown: bool
 
 signal laser(pos)
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	onCooldown = false
+	speed = speed + Upgrades.get_level("ship_speed") * SPEED_PER_LEVEL
+	var fire_level := Upgrades.get_level("fire_rate")
+	if fire_level > 0:
+		$ShootCooldownTimer.wait_time *= pow(FIRE_RATE_MULTIPLIER, fire_level)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

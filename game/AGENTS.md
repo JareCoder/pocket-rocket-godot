@@ -54,7 +54,7 @@ game/
 
 ## Autoloads (singletons)
 
-Five autoloads are registered in `project.godot` and accessible from any script:
+Six autoloads are registered in `project.godot` and accessible from any script:
 
 ### `Settings` (`Global/settings.gd`)
 
@@ -90,6 +90,60 @@ var username: String = ""    # set by the player in the start menu
 Helper functions:
 - `Global.save_username(name)` — writes to `localStorage` on web; no-op on desktop
 - `Global.load_username()` — reads from `localStorage` on web; returns `""` if none saved
+
+**Do not add Flyons or upgrade state here** — that lives in `Upgrades`.
+
+### `Upgrades` (`Global/upgrades.gd`)
+
+Manages the Flyons currency system and all persistent upgrade levels.
+
+#### Flyons
+
+Flyons are the in-game currency earned at the end of each run:
+`earned = floor(score / divisor)` where `divisor = max(1, 10 - flyons_rate_level * 2)`.
+
+Flyons are displayed on the **Game Over** and **Shop** screens only (not the HUD).
+
+#### Upgrade Registry
+
+All upgrades are defined in the `UPGRADES` constant — an `Array[Dictionary]` at the top of `upgrades.gd`. Each entry has these balance-tunable fields:
+
+```gdscript
+{
+    "id":          "ship_speed",       # unique key used in code
+    "label":       "Ship Speed",       # display name in shop
+    "description": "+75 speed/level",  # shown per-level in shop
+    "icon":        "res://...",        # texture path, or "" for emoji default
+    "base_cost":   30,                 # Flyons cost at level 0 → 1
+    "cost_scale":  1.5,                # multiplier per level: cost = base * scale^level
+    "max_level":   3,                  # hard cap
+}
+```
+
+**Adding a new upgrade**: append one Dictionary to `UPGRADES`. The shop UI auto-generates cards from this array — no other files need to change.
+
+#### Public API
+
+```gdscript
+Upgrades.get_flyons()          # → int: current balance
+Upgrades.add_flyons(amount)    # add Flyons (call at game over)
+Upgrades.get_level(id)         # → int: current level (0 = not purchased)
+Upgrades.get_cost(id)          # → int: cost for next level (-1 if maxed)
+Upgrades.can_buy(id)           # → bool: affordable and below max
+Upgrades.try_buy(id)           # → bool: deduct + increment; false if can't
+Upgrades.save()                # persist all data (call after purchases)
+Upgrades.load_data()           # load data (called automatically in _ready)
+```
+
+#### Backend-Ready Abstraction
+
+`save()` and `load_data()` are the only persistence entry points. They currently delegate to local `ConfigFile` (`user://settings.cfg`, section `[upgrades]`). When attaching a remote backend:
+
+```gdscript
+func save() -> void:
+    _local_save()
+    await _remote_save()  # ← add here; callers are unchanged
+```
 
 ### `Api` (`Global/api.gd`)
 
@@ -185,16 +239,19 @@ game_start.tscn  (skips UI — reuses saved username → /game/start)
     ▼
 level.tscn  (restart)
 
-start_menu.tscn → how_to_play.tscn  (How to Play button)
-start_menu.tscn → leaderboard.tscn  (Leaderboard button)
-start_menu.tscn → options.tscn      (Options button)
-start_menu.tscn → credits.tscn      (Credits button)
+start_menu.tscn → how_to_play.tscn   (How to Play button)
+start_menu.tscn → leaderboard.tscn   (Leaderboard button)
+start_menu.tscn → options.tscn       (Options button)
+start_menu.tscn → credits.tscn       (Credits button)
+start_menu.tscn → upgrade_shop.tscn  (Upgrades button)
+game_over.tscn  → upgrade_shop.tscn  (Go to Shop button)
 ```
 
 - **`start_menu.gd`**: Play button navigates to `game_start.tscn`. No session logic here.
 - **`game_start.gd`**: Owns all session-start logic. On `_ready`, if a saved username exists (restart path) it calls `Api.start_game()` immediately and skips the UI; otherwise it shows the username panel, validates input, and then calls `Api.start_game()`. On backend failure it shows a 1.5 s warning then proceeds (graceful degradation). After the token is stored in `Global.session_token` the scene transitions to `level.tscn`.
-- **`level.gd`**: spawns meteors and bonus items, handles health and shield state.
-- **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission. On Space/Enter navigates to `game_start.tscn` (not directly to `level.tscn`).
+- **`level.gd`**: spawns meteors and bonus items, handles health and shield state. Reads upgrade values from `Upgrades` in `_ready()` (health, shield, bullet pattern, drop rate).
+- **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission. Awards Flyons via `Upgrades.add_flyons()` then calls `Upgrades.save()`. On Space/Enter navigates to `game_start.tscn` (not directly to `level.tscn`).
+- **`upgrade_shop.gd`**: generates upgrade cards procedurally from `Upgrades.UPGRADES`. Each card has a buy button that calls `Upgrades.try_buy()`; on success, calls `Upgrades.save()` and refreshes all cards.
 - **`leaderboard.gd`**: loads page 1 on `_ready`, renders rows with gold/silver/bronze for the top 3, supports Prev/Next pagination. Each row shows `score` as a plain integer and `time_played` formatted as `m:ss`.
 - **`credits.gd`**: Manages the Credits screen containing expandable buttons for "Graphics & Sound" and "Music". Toggles display container visibility and updates arrow indicators dynamically. Handles clicking RichTextLabel URLs via `OS.shell_open`.
 - **`how_to_play.gd`**: Manages the How to Play screen showing controls and leaderboard information.
@@ -209,6 +266,29 @@ start_menu.tscn → credits.tscn      (Credits button)
 - The `.godot/` directory is auto-generated by the editor. Do not commit changes to it except `project.godot`.
 - **All backend calls must go through `Api`** — never instantiate `HTTPRequest` nodes manually in scene scripts.
 - **Null-guard `Api` results**: always check `result.ok` before accessing other keys. Network failures and timeouts (5.0s limit) are normal when the player or backend is offline.
+
+## Flyons Upgrade System
+
+### Bullet spread patterns (`level.gd` — `_on_player_laser`)
+
+The `bullet_amount` upgrade changes the firing pattern each run:
+
+| Level | Pattern |
+|---|---|
+| 0 | 1 laser, straight up |
+| 1 | 2 lasers, straight up |
+| 2 | 3 lasers: forward + 45° left & right |
+| 3 | 6 lasers: the level-2 pattern doubled |
+
+Angles are set via `laser.rotation_degrees` before adding to the scene tree.
+
+### Rotation-based laser movement (`laser.gd`)
+
+`laser.gd` uses direction-vector movement derived from the node's rotation:
+```gdscript
+position += Vector2(sin(rotation), -cos(rotation)) * speed * delta
+```
+`rotation = 0` = straight up (backward compatible). Angled spread lasers travel at their rotation angle and are correctly freed by `destroy_offscreen.gd` when they leave the viewport.
 
 ## Known gotchas
 
