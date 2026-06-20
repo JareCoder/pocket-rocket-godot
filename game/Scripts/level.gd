@@ -83,8 +83,7 @@ func _on_item_spawn_timer_timeout() -> void:
 	# HP spawn chance 5%
 	var a: int = rng.randi_range(0, 10)
 	var b := rng.randi_range(0, 20)
-	print("Shield random value: ", a)
-	print("Hp random value: ", b)
+	
 	if (a <= 1):
 		var new_shield_item = _spawn_item(shield_item_scene)
 		new_shield_item.connect('collision', _on_shield_item_collision)
