@@ -18,6 +18,7 @@ const BASE_URL := "http://localhost:3000"
 
 func _make_request(method: HTTPClient.Method, endpoint: String, body: Dictionary = {}) -> Dictionary:
 	var http := HTTPRequest.new()
+	http.timeout = 5.0
 	add_child(http)
 
 	var headers := PackedStringArray([
