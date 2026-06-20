@@ -18,7 +18,7 @@ func _on_song_started(title: String) -> void:
 	
 	_popup_tween = create_tween()
 	_popup_tween.tween_property($MusicPopup, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	_popup_tween.tween_interval(5.0)
+	_popup_tween.tween_interval(3.0)
 	_popup_tween.tween_property($MusicPopup, "modulate:a", 0.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	_popup_tween.tween_callback(func(): $MusicPopup.visible = false)
 

@@ -28,28 +28,53 @@ game/
 ├── Audio/           ← Sound effects and music tracks
 ├── Global/
 │   ├── global.gd    ← Autoload "Global": game state + username persistence
-│   └── api.gd       ← Autoload "Api": HTTP wrapper for the backend
+│   ├── api.gd       ← Autoload "Api": HTTP wrapper for the backend
+│   ├── settings.gd  ← Autoload "Settings": volume settings + track loader/saver
+│   └── game_music.gd← Autoload "GameMusic": shuffled track player + song_started emitter
 ├── Scenes/          ← .tscn scene files (one per game object/screen)
 ├── Scripts/         ← .gd scripts attached to scenes
 │   ├── level.gd         ← Main game loop: spawning, health, shield
-│   ├── ui.gd            ← HUD: HP/shield icons, score timer
+│   ├── ui.gd            ← HUD: HP/shield icons, score timer, song popup
 │   ├── player.gd        ← Movement (WASD/arrows) and shooting (Space/LMB)
 │   ├── meteor.gd        ← Meteor spawn, movement, collision, destroy anim
 │   ├── laser.gd         ← Laser projectile behaviour
 │   ├── bonus_item.gd    ← Base for collectible items
 │   ├── destroy_offscreen.gd ← Frees nodes that leave the viewport
-│   ├── start_menu.gd    ← Main menu buttons (Play → game_start, Leaderboard)
+│   ├── start_menu.gd    ← Main menu buttons (Play → game_start, Leaderboard, Options, Credits)
 │   ├── game_start.gd    ← Username entry + /game/start call; shared by first-play and restart
 │   ├── game_over.gd     ← Score display + /game/end call + rank display
 │   ├── leaderboard.gd   ← Paginated leaderboard screen
-│   ├── music_player.gd  ← Background music looping
-│   └── ui.gd            ← HUD logic
+│   ├── options.gd       ← Audio options (volume & tracks) menu controller
+│   ├── credits.gd       ← Credits screen with expandable sections
+│   └── ui.gd            ← HUD logic (including Now Playing popup)
+├── default_bus_layout.tres ← Master, SFX, LobbyMusic, GameMusic audio buses
 └── project.godot
 ```
 
 ## Autoloads (singletons)
 
-Two autoloads are registered in `project.godot` and accessible from any script:
+Five autoloads are registered in `project.godot` and accessible from any script:
+
+### `Settings` (`Global/settings.gd`)
+
+Manages player options, loaded and saved automatically using `ConfigFile` at `user://settings.cfg`.
+- `sfx_volume` (0.0 to 1.0)
+- `lobby_music_volume` (0.0 to 1.0)
+- `game_music_volume` (0.0 to 1.0)
+- `enabled_tracks` (Array of resource paths for active in-game music tracks)
+
+It applies these settings dynamically to the corresponding Godot AudioBuses on startup and whenever a setting changes.
+
+### `GameMusic` (`Global/game_music.gd`)
+
+Plays background music during gameplay. Routes through the `GameMusic` bus.
+- Loads the enabled tracks from `Settings.enabled_tracks`.
+- Shuffles them to play in random sequence.
+- Emits `song_started(title: String)` when a new track starts.
+
+### `LobbyMusic` (`Global/lobby_music.gd`)
+
+Plays the start menu, credits, and game-over screens background music. Routes through the `LobbyMusic` bus.
 
 ### `Global` (`Global/global.gd`)
 
@@ -110,6 +135,21 @@ The leaderboard sorts by `score DESC` and displays both `score` (raw integer) an
 
 The laser-meteor collision relies on lasers (`Area2D`) only interacting with meteors — do not add the laser layer to other collision masks without careful testing.
 
+## Audio & Music System
+
+The project uses Godot's AudioServer bus system. Four buses are defined:
+- `Master`: Parent of all buses.
+- `SFX`: Sound effects (lasers, damage, explosions, game over sound). Nodes must have `bus = "SFX"`.
+- `LobbyMusic`: Menu music track player (`LobbyMusic` autoload).
+- `GameMusic`: In-game music track player (`GameMusic` autoload).
+
+### "Now Playing" Song Popup
+When a new song begins playing during level gameplay, `GameMusic` emits `song_started`. The HUD UI (`ui.gd`) listens for this and displays a semi-transparent, neon-bordered popup panel in the bottom-right corner. It animates using a Tween:
+- Fades in over 0.4s.
+- Remains visible for 5.0 seconds.
+- Fades out over 0.4s.
+- Tween animation is safely queued and reset when new tracks play immediately.
+
 ## Input actions
 
 Defined in `project.godot`:
@@ -143,6 +183,8 @@ game_start.tscn  (skips UI — reuses saved username → /game/start)
 level.tscn  (restart)
 
 start_menu.tscn → leaderboard.tscn  (Leaderboard button)
+start_menu.tscn → options.tscn      (Options button)
+start_menu.tscn → credits.tscn      (Credits button)
 ```
 
 - **`start_menu.gd`**: Play button navigates to `game_start.tscn`. No session logic here.
@@ -150,6 +192,7 @@ start_menu.tscn → leaderboard.tscn  (Leaderboard button)
 - **`level.gd`**: spawns meteors and bonus items, handles health and shield state.
 - **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission. On Space/Enter navigates to `game_start.tscn` (not directly to `level.tscn`).
 - **`leaderboard.gd`**: loads page 1 on `_ready`, renders rows with gold/silver/bronze for the top 3, supports Prev/Next pagination. Each row shows `score` as a plain integer and `time_played` formatted as `m:ss`.
+- **`credits.gd`**: Manages the Credits screen containing expandable buttons for "Graphics & Sound" and "Music". Toggles display container visibility and updates arrow indicators dynamically. Handles clicking RichTextLabel URLs via `OS.shell_open`.
 
 ## Conventions
 
