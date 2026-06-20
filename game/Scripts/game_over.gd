@@ -3,6 +3,7 @@ extends Control
 var game_start_scene: PackedScene = load("res://Scenes/game_start.tscn")
 
 func _ready() -> void:
+	LobbyMusic.play()
 	%Score.text = "Score: " + str(Global.score)
 	_submit_score()
 

@@ -19,6 +19,7 @@ config/icon="uid://cim6dqichwduk"
 
 Api="*res://Global/api.gd"
 Global="*uid://xdmfoadu4w44"
+LobbyMusic="*res://Global/lobby_music.gd"
 
 [global_group]
 

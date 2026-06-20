@@ -15,6 +15,7 @@ var shield: int = 0
 var health: int = 3
 
 func _ready():
+	LobbyMusic.stop()
 	size = get_viewport().get_visible_rect().size
 	print(size)
 	

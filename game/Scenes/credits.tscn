@@ -1,0 +1,243 @@
+[gd_scene format=3 uid="uid://credits001"]
+
+[ext_resource type="Script" uid="uid://ep8jkuhj44vw" path="res://Scripts/credits.gd" id="1_cr"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="2_cr"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="3_cr"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="4_cr"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="5_cr"]
+
+[node name="Credits" type="Control" unique_id=549610807]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cr")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1740464727]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_cr")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1827987609]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer" unique_id=1523595423]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="CenterContainer/VBox" unique_id=1630371215]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_cr")
+theme_override_font_sizes/font_size = 42
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="Separator0" type="HSeparator" parent="CenterContainer/VBox" unique_id=697484131]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBox" unique_id=282183745]
+custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ContentVBox" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer" unique_id=2107382671]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="GraphicsButton" type="Button" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1237071660]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_cr")
+text = "▶  Graphics & Sound"
+alignment = 0
+
+[node name="GraphicsPanel" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1851617456]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ThankYou" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/GraphicsPanel" unique_id=43270758]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_cr")
+theme_override_font_sizes/font_size = 18
+text = "Thank you for the awesome art and sounds!"
+horizontal_alignment = 1
+
+[node name="KenneyCredit" type="RichTextLabel" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/GraphicsPanel" unique_id=27077413]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.85, 0.85, 0.95, 1)
+theme_override_fonts/normal_font = ExtResource("3_cr")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "[center]###############################################################################
+
+Space Shooter (Redux, plus fonts and sounds) by Kenney Vleugels
+[url=https://www.kenney.nl][color=#7ad4ff]www.kenney.nl[/color][/url]
+
+——————————————————
+
+License (CC0)
+[url=https://creativecommons.org/publicdomain/zero/1.0/][color=#7ad4ff]creativecommons.org/publicdomain/zero/1.0[/color][/url]
+
+You may use these graphics in personal and commercial projects.
+Credit (Kenney or www.kenney.nl) would be nice but is not mandatory.
+
+###############################################################################[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="Separator1" type="HSeparator" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1930737700]
+layout_mode = 2
+
+[node name="MusicButton" type="Button" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=130159257]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_cr")
+text = "▶  Music"
+alignment = 0
+
+[node name="MusicPanel" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1694603787]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Track1" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel" unique_id=1746696618]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TrackName" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track1" unique_id=1770421104]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_cr")
+theme_override_font_sizes/font_size = 18
+text = "Usual Rigmarole — Calima"
+
+[node name="TrackSource" type="RichTextLabel" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track1" unique_id=1450680369]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_cr")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "Free Music No Copyright (Safe) — [url=https://freetouse.com/music][color=#7ad4ff]freetouse.com/music[/color][/url]"
+fit_content = true
+scroll_active = false
+
+[node name="Track2" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel" unique_id=851304022]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TrackName" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track2" unique_id=977969893]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_cr")
+theme_override_font_sizes/font_size = 18
+text = "This Is Phonk — Aylex"
+
+[node name="TrackSource" type="RichTextLabel" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track2" unique_id=576218437]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_cr")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "Royalty Free Music for Videos (Safe) — [url=https://freetouse.com/music][color=#7ad4ff]freetouse.com/music[/color][/url]"
+fit_content = true
+scroll_active = false
+
+[node name="Track3" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel" unique_id=1635995057]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TrackName" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track3" unique_id=610240986]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_cr")
+theme_override_font_sizes/font_size = 18
+text = "HEADPHONK — Walen"
+
+[node name="TrackSource" type="RichTextLabel" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track3" unique_id=1395572302]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_cr")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "Free To Use Music for Video — [url=https://freetouse.com/music][color=#7ad4ff]freetouse.com/music[/color][/url]"
+fit_content = true
+scroll_active = false
+
+[node name="Track4" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel" unique_id=147882520]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TrackName" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track4" unique_id=2146244655]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_cr")
+theme_override_font_sizes/font_size = 18
+text = "Off Road — Aylex"
+
+[node name="TrackSource" type="RichTextLabel" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track4" unique_id=341215687]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_cr")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "No Copyright Background Music — [url=https://freetouse.com/music][color=#7ad4ff]freetouse.com/music[/color][/url]"
+fit_content = true
+scroll_active = false
+
+[node name="Track5" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel" unique_id=671854064]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="TrackName" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track5" unique_id=1725867509]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_cr")
+theme_override_font_sizes/font_size = 18
+text = "LOUD — Aylex"
+
+[node name="TrackSource" type="RichTextLabel" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track5" unique_id=569510872]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_cr")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "Vlog Music for Videos (Free Download) — [url=https://freetouse.com/music][color=#7ad4ff]freetouse.com/music[/color][/url]"
+fit_content = true
+scroll_active = false
+
+[node name="Separator2" type="HSeparator" parent="CenterContainer/VBox" unique_id=1322104108]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBox" unique_id=1778687739]
+layout_mode = 2
+theme = ExtResource("5_cr")
+text = "← Back to Menu"
+
+[connection signal="pressed" from="CenterContainer/VBox/ScrollContainer/ContentVBox/GraphicsButton" to="." method="_on_graphics_button_pressed"]
+[connection signal="meta_clicked" from="CenterContainer/VBox/ScrollContainer/ContentVBox/GraphicsPanel/KenneyCredit" to="." method="_on_link_clicked"]
+[connection signal="pressed" from="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicButton" to="." method="_on_music_button_pressed"]
+[connection signal="meta_clicked" from="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track1/TrackSource" to="." method="_on_link_clicked"]
+[connection signal="meta_clicked" from="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track2/TrackSource" to="." method="_on_link_clicked"]
+[connection signal="meta_clicked" from="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track3/TrackSource" to="." method="_on_link_clicked"]
+[connection signal="meta_clicked" from="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track4/TrackSource" to="." method="_on_link_clicked"]
+[connection signal="meta_clicked" from="CenterContainer/VBox/ScrollContainer/ContentVBox/MusicPanel/Track5/TrackSource" to="." method="_on_link_clicked"]
+[connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]
