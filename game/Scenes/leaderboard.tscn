@@ -146,7 +146,7 @@ layout_mode = 2
 theme = ExtResource("5_lb")
 theme_override_fonts/font = ExtResource("3_lb")
 theme_override_font_sizes/font_size = 20
-text = "← Back to Menu"
+text = "Back to Menu"
 
 [connection signal="pressed" from="CenterContainer/VBox/PaginationRow/PrevButton" to="." method="_on_prev_pressed"]
 [connection signal="pressed" from="CenterContainer/VBox/PaginationRow/NextButton" to="." method="_on_next_pressed"]

@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func _update_button_text(button: Button, is_open: bool) -> void:
-	var arrow := "▼" if is_open else "▶"
+	var arrow := "v" if is_open else ">"
 	var base := "Music" if button == music_button else "Graphics & Sound"
 	button.text = arrow + "  " + base
 

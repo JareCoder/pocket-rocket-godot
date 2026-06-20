@@ -50,7 +50,7 @@ func _ready() -> void:
 
 	# Tracks dropdown section toggle
 	tracks_panel.visible = false
-	tracks_button.text = "▶  Game Tracks"
+	tracks_button.text = ">  Game Tracks"
 	tracks_button.pressed.connect(_on_tracks_button_pressed)
 
 	# Set up Fullscreen button
@@ -85,9 +85,9 @@ func _on_lobby_music_volume_changed(value: float) -> void:
 func _on_tracks_button_pressed() -> void:
 	tracks_panel.visible = not tracks_panel.visible
 	if tracks_panel.visible:
-		tracks_button.text = "▼  Game Tracks"
+		tracks_button.text = "v  Game Tracks"
 	else:
-		tracks_button.text = "▶  Game Tracks"
+		tracks_button.text = ">  Game Tracks"
 
 func _on_track_toggled(pressed: bool, index: int) -> void:
 	var path = TRACK_PATHS[index]

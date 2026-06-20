@@ -182,8 +182,8 @@ All functions return a `Dictionary` with an `"ok"` key:
 
 All requests have a 5.0-second timeout to prevent the client from hanging if the backend is offline.
 
-The backend URL is `const BASE_URL := "http://localhost:3000"` in `api.gd`.
-Change this if the port differs. Game and backend run on the same server behind Nginx.
+The backend URL is dynamically determined in `api.gd` (defaulting to `http://127.0.0.1:3000` for local development, and adapting to the server's protocol, domain, and port when running in a web browser).
+This allows the client to automatically connect whether it is running locally or deployed behind an Nginx reverse proxy.
 
 ## Scoring system
 

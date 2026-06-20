@@ -143,7 +143,7 @@ layout_mode = 2
 theme = ExtResource("5_op")
 theme_override_fonts/font = ExtResource("3_op")
 theme_override_font_sizes/font_size = 18
-text = "▶  Game Tracks"
+text = ">  Game Tracks"
 alignment = 0
 
 [node name="TracksPanel" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1694603788]
@@ -199,6 +199,6 @@ layout_mode = 2
 theme = ExtResource("5_op")
 theme_override_fonts/font = ExtResource("3_op")
 theme_override_font_sizes/font_size = 20
-text = "← Back to Menu"
+text = "Back to Menu"
 
 [connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]
