@@ -22,12 +22,22 @@ func _ready() -> void:
 	var has_name: bool = saved is String and saved.length() > 0
 
 	if has_name:
-		# Restart path: reuse saved username, no UI interaction needed.
-		%UsernamePanel.visible = false
+		# Restart path: reuse saved username, keep panel visible but disabled and show connecting state
+		%UsernameInput.text = saved
+		%UsernameInput.editable = false
+		%ConfirmButton.disabled = true
+		%ConfirmButton.text = "Connecting..."
+		%BackButton.disabled = true
+		%UsernameError.visible = false
+		%UsernamePanel.visible = true
 		await _start_session(saved)
 	else:
 		# First-play path: show the panel so the player can enter a name.
 		%UsernameInput.text = ""
+		%UsernameInput.editable = true
+		%ConfirmButton.disabled = false
+		%ConfirmButton.text = "Let's go!"
+		%BackButton.disabled = false
 		%UsernameError.visible = false
 		%UsernamePanel.visible = true
 		%UsernameInput.grab_focus()
@@ -48,8 +58,10 @@ func _on_confirm_username_pressed(_text: String = "") -> void:
 		return
 
 	%UsernameError.visible = false
+	%UsernameInput.editable = false
 	%ConfirmButton.disabled = true
 	%ConfirmButton.text = "Connecting..."
+	%BackButton.disabled = true
 
 	Global.save_username(raw)
 	await _start_session(raw)
@@ -64,7 +76,6 @@ func _start_session(username: String) -> void:
 	else:
 		Global.session_token = ""
 		# Show inline warning then proceed — graceful degradation.
-		%UsernamePanel.visible = true
 		%UsernameError.text = "⚠ Leaderboard offline — score won't be saved."
 		%UsernameError.visible = true
 		await get_tree().create_timer(1.5).timeout
