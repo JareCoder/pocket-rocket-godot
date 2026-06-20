@@ -3,6 +3,24 @@ extends CanvasLayer
 static var hpTexture = load("res://Assets/PNG/UI/playerLife1_blue.png")
 static var shieldTexture = load("res://Assets/PNG/Power-ups/shield_gold.png")
 var seconds_elapsed := 0
+var _popup_tween: Tween = null
+
+func _ready() -> void:
+	GameMusic.song_started.connect(_on_song_started)
+
+func _on_song_started(title: String) -> void:
+	if _popup_tween:
+		_popup_tween.kill()
+		
+	%SongTitleLabel.text = title
+	$MusicPopup.visible = true
+	$MusicPopup.modulate.a = 0.0
+	
+	_popup_tween = create_tween()
+	_popup_tween.tween_property($MusicPopup, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	_popup_tween.tween_interval(5.0)
+	_popup_tween.tween_property($MusicPopup, "modulate:a", 0.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_popup_tween.tween_callback(func(): $MusicPopup.visible = false)
 
 func set_health(amount):
 	for child in $BuffersMargin/VBuffersContainer/HpContainer.get_children():

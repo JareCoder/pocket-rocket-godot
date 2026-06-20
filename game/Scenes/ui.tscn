@@ -4,6 +4,23 @@
 [ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="1_qdvrb"]
 [ext_resource type="Texture2D" uid="uid://djw38eg10jrr" path="res://Assets/PNG/Power-ups/shield_gold.png" id="3_2246s"]
 [ext_resource type="Texture2D" uid="uid://bb1gxfudh1pqk" path="res://Assets/PNG/UI/playerLife1_blue.png" id="3_nf4gj"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="4_nf4gj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_music"]
+bg_color = Color(0.0980392, 0.0784314, 0.156863, 0.784314)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.392157, 0.627451, 1, 0.823529)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
 
 [node name="UI" type="CanvasLayer" unique_id=1621935616 groups=["ui"]]
 script = ExtResource("1_nf4gj")
@@ -73,6 +90,55 @@ texture = ExtResource("3_nf4gj")
 [node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=1001286794]
 layout_mode = 2
 texture = ExtResource("3_nf4gj")
+
+[node name="MusicPopup" type="MarginContainer" parent="." unique_id=879139638]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -60.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="MusicPopup" unique_id=879139639]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_music")
+
+[node name="HBox" type="HBoxContainer" parent="MusicPopup/PanelContainer" unique_id=879139640]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MusicIcon" type="Label" parent="MusicPopup/PanelContainer/HBox" unique_id=879139641]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.75, 1, 1)
+theme_override_fonts/font = ExtResource("1_qdvrb")
+theme_override_font_sizes/font_size = 20
+text = "♪"
+vertical_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="MusicPopup/PanelContainer/HBox" unique_id=879139642]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="NowPlayingLabel" type="Label" parent="MusicPopup/PanelContainer/HBox/VBox" unique_id=879139643]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.75, 1, 0.7)
+theme_override_fonts/font = ExtResource("1_qdvrb")
+theme_override_font_sizes/font_size = 10
+text = "NOW PLAYING"
+
+[node name="SongTitleLabel" type="Label" parent="MusicPopup/PanelContainer/HBox/VBox" unique_id=987654321]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_nf4gj")
+theme_override_font_sizes/font_size = 14
+text = "Song Title - Artist"
 
 [node name="ScoreTimer" type="Timer" parent="." unique_id=1387659567]
 autostart = true
