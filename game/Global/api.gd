@@ -13,7 +13,25 @@ extends Node
 ##   { "ok": false, "error": "..." }   on any failure
 
 
-const BASE_URL := "http://127.0.0.1:3000"
+var BASE_URL := "http://127.0.0.1:3000"
+
+
+func _ready() -> void:
+	if OS.has_feature("web") and Engine.has_singleton("JavaScriptBridge"):
+		var js = Engine.get_singleton("JavaScriptBridge")
+		var hostname = js.eval("window.location.hostname")
+		var protocol = js.eval("window.location.protocol")
+		var port = js.eval("window.location.port")
+		if hostname and hostname != "":
+			if port == "" or port == "80" or port == "443":
+				BASE_URL = protocol + "//" + hostname
+			elif port == "3000":
+				BASE_URL = protocol + "//" + hostname + ":3000"
+			else:
+				if OS.is_debug_build():
+					BASE_URL = protocol + "//" + hostname + ":3000"
+				else:
+					BASE_URL = protocol + "//" + hostname + ":" + port
 
 
 func _make_request(method: HTTPClient.Method, endpoint: String, body: Dictionary = {}) -> Dictionary:
