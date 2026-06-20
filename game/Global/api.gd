@@ -13,7 +13,7 @@ extends Node
 ##   { "ok": false, "error": "..." }   on any failure
 
 
-const BASE_URL := "http://localhost:3000"
+const BASE_URL := "http://127.0.0.1:3000"
 
 
 func _make_request(method: HTTPClient.Method, endpoint: String, body: Dictionary = {}) -> Dictionary:

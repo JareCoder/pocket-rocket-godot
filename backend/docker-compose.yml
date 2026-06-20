@@ -1,8 +1,9 @@
 services:
   backend:
+    container_name: pocket-rocket-backend
     build: .
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     volumes:
       - db_data:/app/data
     env_file:
