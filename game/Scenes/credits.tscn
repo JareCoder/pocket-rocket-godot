@@ -63,6 +63,8 @@ theme_override_constants/separation = 4
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("5_cr")
+theme_override_fonts/font = ExtResource("3_cr")
+theme_override_font_sizes/font_size = 18
 text = "▶  Graphics & Sound"
 alignment = 0
 
@@ -110,6 +112,8 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("5_cr")
+theme_override_fonts/font = ExtResource("3_cr")
+theme_override_font_sizes/font_size = 18
 text = "▶  Music"
 alignment = 0
 
@@ -230,6 +234,8 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="CenterContainer/VBox" unique_id=1778687739]
 layout_mode = 2
 theme = ExtResource("5_cr")
+theme_override_fonts/font = ExtResource("3_cr")
+theme_override_font_sizes/font_size = 20
 text = "← Back to Menu"
 
 [connection signal="pressed" from="CenterContainer/VBox/ScrollContainer/ContentVBox/GraphicsButton" to="." method="_on_graphics_button_pressed"]

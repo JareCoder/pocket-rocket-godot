@@ -112,6 +112,8 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 18
 text = "▶  Game Tracks"
 alignment = 0
 
@@ -166,6 +168,8 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="CenterContainer/VBox" unique_id=1778687740]
 layout_mode = 2
 theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 20
 text = "← Back to Menu"
 
 [connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]

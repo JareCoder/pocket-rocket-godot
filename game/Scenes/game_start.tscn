@@ -97,6 +97,8 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_gs")
+theme_override_fonts/font = ExtResource("5_gs")
+theme_override_font_sizes/font_size = 18
 text = "Back"
 
 [node name="ConfirmButton" type="Button" parent="UsernamePanel/MarginContainer/VBox/HBoxButtons"]
@@ -104,6 +106,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_gs")
+theme_override_fonts/font = ExtResource("5_gs")
+theme_override_font_sizes/font_size = 18
 text = "Let's go!"
 
 [connection signal="text_submitted" from="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer/UsernameInput" to="." method="_on_confirm_username_pressed"]
