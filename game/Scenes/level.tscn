@@ -5,11 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://mnlem4e4hrwj" path="res://Assets/Backgrounds/darkPurple.png" id="2_k5f4k"]
 [ext_resource type="PackedScene" uid="uid://dupykjwkr6ll" path="res://Scenes/ui.tscn" id="4_81xng"]
 [ext_resource type="Texture2D" uid="uid://j0wrtcx1udvm" path="res://Assets/PNG/Effects/shield3.png" id="4_bvt00"]
-[ext_resource type="AudioStream" uid="uid://bxegqvyi131nd" path="res://Audio/Music/Aylex - This Is Phonk.mp3" id="5_wqkje"]
-[ext_resource type="AudioStream" uid="uid://tk2ugiedsnc6" path="res://Audio/Music/Walen - HEADPHONK.mp3" id="6_754fn"]
-[ext_resource type="AudioStream" uid="uid://bvnhjsgyqgq6d" path="res://Audio/Music/Aylex - Off Road.mp3" id="7_bvt00"]
-[ext_resource type="AudioStream" uid="uid://bhumk7lakhky7" path="res://Audio/Music/Aylex - LOUD.mp3" id="8_oqgf2"]
-[ext_resource type="Script" uid="uid://dxauyra6j604v" path="res://Scripts/music_player.gd" id="10_oqgf2"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqkje"]
 size = Vector2(1212, 48)
@@ -23,12 +19,7 @@ size = Vector2(44, 698)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0f350"]
 size = Vector2(1212, 48)
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qxfql"]
-streams_count = 4
-stream_0/stream = ExtResource("5_wqkje")
-stream_1/stream = ExtResource("6_754fn")
-stream_2/stream = ExtResource("7_bvt00")
-stream_3/stream = ExtResource("8_oqgf2")
+
 
 [node name="Level" type="Node2D" unique_id=676947357]
 script = ExtResource("1_754fn")
@@ -92,12 +83,6 @@ autostart = true
 
 [node name="UI" parent="." unique_id=1621935616 instance=ExtResource("4_81xng")]
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1144740901]
-stream = SubResource("AudioStreamRandomizer_qxfql")
-volume_db = -25.0
-autoplay = true
-script = ExtResource("10_oqgf2")
-
 [node name="ItemSpawnTimer" type="Timer" parent="." unique_id=1314545124]
 wait_time = 5.0
 autostart = true
@@ -107,5 +92,4 @@ autostart = true
 [connection signal="laser" from="Player" to="." method="_on_player_laser"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
-[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]
 [connection signal="timeout" from="ItemSpawnTimer" to="." method="_on_item_spawn_timer_timeout"]

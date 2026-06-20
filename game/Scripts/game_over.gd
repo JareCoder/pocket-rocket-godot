@@ -4,6 +4,7 @@ var game_start_scene: PackedScene = load("res://Scenes/game_start.tscn")
 var start_menu_scene: PackedScene = load("res://Scenes/start_menu.tscn")
 
 func _ready() -> void:
+	GameMusic.stop()
 	LobbyMusic.play()
 	%Score.text = "Score: " + str(Global.score)
 	_submit_score()

@@ -103,5 +103,6 @@ text = "Press space to play again"
 [node name="GameOverSound" type="AudioStreamPlayer2D" parent="." unique_id=204864574]
 stream = ExtResource("4_eoghk")
 autoplay = true
+bus = "SFX"
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

@@ -69,9 +69,11 @@ wait_time = 0.5
 
 [node name="LaserSound" type="AudioStreamPlayer2D" parent="." unique_id=1872161790]
 stream = ExtResource("3_6t5aa")
+bus = "SFX"
 
 [node name="DamageSound" type="AudioStreamPlayer2D" parent="." unique_id=322244812]
 stream = ExtResource("4_vgqql")
 pitch_scale = 0.34
+bus = "SFX"
 
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_shoot_cooldown_timer_timeout"]

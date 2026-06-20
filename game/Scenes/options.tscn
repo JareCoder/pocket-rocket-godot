@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://options001"]
+
+[ext_resource type="Script" uid="uid://c6j276kqbvw3o" path="res://Scripts/options.gd" id="1_op"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="2_op"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="3_op"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="4_op"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="5_op"]
+
+[node name="Options" type="Control" unique_id=549610808]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_op")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1740464728]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_op")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1827987610]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer" unique_id=1523595424]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="CenterContainer/VBox" unique_id=1630371216]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_op")
+theme_override_font_sizes/font_size = 42
+text = "Options"
+horizontal_alignment = 1
+
+[node name="Separator0" type="HSeparator" parent="CenterContainer/VBox" unique_id=697484132]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBox" unique_id=282183746]
+custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ContentVBox" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer" unique_id=2107382672]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="VolumeSection" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1851617457]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SfxLabel" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/VolumeSection" unique_id=43270759]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 18
+text = "SFX Volume"
+
+[node name="SfxSlider" type="HSlider" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/VolumeSection" unique_id=27077414]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="GameMusicLabel" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/VolumeSection" unique_id=43270760]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 18
+text = "Game Music Volume"
+
+[node name="GameMusicSlider" type="HSlider" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/VolumeSection" unique_id=27077415]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="LobbyMusicLabel" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/VolumeSection" unique_id=43270761]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 18
+text = "Lobby Music Volume"
+
+[node name="LobbyMusicSlider" type="HSlider" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/VolumeSection" unique_id=27077416]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Separator1" type="HSeparator" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1930737701]
+layout_mode = 2
+
+[node name="TracksButton" type="Button" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=130159258]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+text = "▶  Game Tracks"
+alignment = 0
+
+[node name="TracksPanel" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1694603788]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HintLabel" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/TracksPanel" unique_id=1746696619]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.7, 0.8, 1)
+text = "Select which tracks play in-game:"
+
+[node name="TrackButton1" type="CheckButton" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/TracksPanel" unique_id=1746696620]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 16
+text = "This Is Phonk — Aylex"
+
+[node name="TrackButton2" type="CheckButton" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/TracksPanel" unique_id=1746696621]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 16
+text = "HEADPHONK — Walen"
+
+[node name="TrackButton3" type="CheckButton" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/TracksPanel" unique_id=1746696622]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 16
+text = "Off Road — Aylex"
+
+[node name="TrackButton4" type="CheckButton" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/TracksPanel" unique_id=1746696623]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 16
+text = "LOUD — Aylex"
+
+[node name="Separator2" type="HSeparator" parent="CenterContainer/VBox" unique_id=1322104109]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBox" unique_id=1778687740]
+layout_mode = 2
+theme = ExtResource("5_op")
+text = "← Back to Menu"
+
+[connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]
