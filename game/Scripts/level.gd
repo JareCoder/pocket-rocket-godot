@@ -21,6 +21,11 @@ func _ready():
 	size = get_viewport().get_visible_rect().size
 	print(size)
 	
+	# Instantiate mobile touch controls if touchscreen is available and enabled in settings
+	if Global.is_touch_device() and Settings.touch_controls_enabled:
+		var touch_controls = load("res://Scenes/touch_controls.tscn").instantiate()
+		add_child(touch_controls)
+	
 	# Apply starting stat upgrades
 	health = 3 + Upgrades.get_level("starting_health")
 	shield = Upgrades.get_level("starting_shield")

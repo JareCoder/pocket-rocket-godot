@@ -105,6 +105,35 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
+[node name="SeparatorVolume" type="HSeparator" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=28372675]
+layout_mode = 2
+
+[node name="ControlsSection" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=28372671]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DisplayHeader" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/ControlsSection" unique_id=28372672]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 18
+text = "Game Settings"
+
+[node name="FullscreenButton" type="CheckButton" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/ControlsSection" unique_id=28372673]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 16
+text = "Fullscreen Mode"
+
+[node name="TouchControlsButton" type="CheckButton" parent="CenterContainer/VBox/ScrollContainer/ContentVBox/ControlsSection" unique_id=28372674]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_op")
+theme_override_fonts/font = ExtResource("3_op")
+theme_override_font_sizes/font_size = 16
+text = "Touch Controls (Mobile)"
+
 [node name="Separator1" type="HSeparator" parent="CenterContainer/VBox/ScrollContainer/ContentVBox" unique_id=1930737701]
 layout_mode = 2
 

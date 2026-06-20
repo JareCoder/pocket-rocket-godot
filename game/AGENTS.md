@@ -17,6 +17,9 @@ The game is built for **web export** (HTML5) and connects to a Node.js leaderboa
 | Renderer | GL Compatibility (mobile-friendly) |
 | Physics | Jolt Physics (3D), default 2D |
 | Language | GDScript |
+| Stretch Mode | canvas_items |
+| Aspect Ratio | keep (16:9 ratio letterboxing/pillarboxing) |
+| Orientation | landscape (forced on handhelds) |
 
 Project config is in `project.godot`. **Do not edit it by hand** — use the Godot editor for project settings, except for adding autoloads which can be done by editing the `[autoload]` section directly.
 
@@ -32,8 +35,10 @@ game/
 │   ├── settings.gd  ← Autoload "Settings": volume settings + track loader/saver
 │   └── game_music.gd← Autoload "GameMusic": shuffled track player + song_started emitter
 ├── Scenes/          ← .tscn scene files (one per game object/screen)
+│   ├── touch_controls.tscn ← Mobile joystick overlay CanvasLayer
+│   └── ...
 ├── Scripts/         ← .gd scripts attached to scenes
-│   ├── level.gd         ← Main game loop: spawning, health, shield
+│   ├── level.gd         ← Main game loop: spawning, health, shield, touch overlay loader
 │   ├── ui.gd            ← HUD: HP/shield icons, score timer, song popup
 │   ├── player.gd        ← Movement (WASD/arrows) and shooting (Space/LMB)
 │   ├── meteor.gd        ← Meteor spawn, movement, collision, destroy anim
@@ -44,9 +49,10 @@ game/
 │   ├── game_start.gd    ← Username entry + /game/start call; shared by first-play and restart
 │   ├── game_over.gd     ← Score display + /game/end call + rank display
 │   ├── leaderboard.gd   ← Paginated leaderboard screen
-│   ├── options.gd       ← Audio options (volume & tracks) menu controller
+│   ├── options.gd       ← Audio, Fullscreen, and Touch Controls menu controller
 │   ├── credits.gd       ← Credits screen with expandable sections
 │   ├── how_to_play.gd   ← How to Play screen (WASD/arrows/shoot/leaderboard description)
+│   ├── touch_controls.gd ← Custom Control for dynamic joystick and shoot button
 │   └── ui.gd            ← HUD logic (including Now Playing popup)
 ├── default_bus_layout.tres ← Master, SFX, LobbyMusic, GameMusic audio buses
 └── project.godot
@@ -63,8 +69,9 @@ Manages player options, loaded and saved automatically using `ConfigFile` at `us
 - `lobby_music_volume` (0.0 to 1.0)
 - `game_music_volume` (0.0 to 1.0)
 - `enabled_tracks` (Array of resource paths for active in-game music tracks)
+- `touch_controls_enabled` (bool: whether touch UI is enabled on mobile touch screens)
 
-It applies these settings dynamically to the corresponding Godot AudioBuses on startup and whenever a setting changes.
+It applies these settings dynamically to the corresponding Godot AudioBuses on startup and whenever a setting changes. Touch controls settings are read by the level loader.
 
 ### `GameMusic` (`Global/game_music.gd`)
 
@@ -93,6 +100,7 @@ On startup (`_ready`), `Global` reads the `GAME_ENV` environment variable (`OS.g
 Helper functions:
 - `Global.save_username(name)` — writes to `localStorage` on web; no-op on desktop
 - `Global.load_username()` — reads from `localStorage` on web; returns `""` if none saved
+- `Global.is_touch_device()` — checks if current device is a mobile platform (or editor under touch emulation) to decide whether to load touch controls.
 
 **Do not add Flyons or upgrade state here** — that lives in `Upgrades`.
 
@@ -219,11 +227,17 @@ Defined in `project.godot`:
 
 | Action | Keys / Buttons |
 |---|---|
-| `left` | A, ← |
-| `right` | D, → |
-| `up` | W, ↑ |
-| `down` | S, ↓ |
-| `shoot` | Space, Left Mouse Button |
+| `left` | A, ←, or Touch Joystick Drag left |
+| `right` | D, →, or Touch Joystick Drag right |
+| `up` | W, ↑, or Touch Joystick Drag up |
+| `down` | S, ↓, or Touch Joystick Drag down |
+| `shoot` | Space, Left Mouse Button, or Touch Fire Button |
+
+### Mobile Touch Controls Overlay
+
+When `Global.is_touch_device()` is true and `Settings.touch_controls_enabled` is active, the level instantiates `touch_controls.tscn`.
+*   **Virtual Joystick**: A dynamic area on the left half of the screen. Pressing down creates a dynamic center point. Dragging moves the joystick handle, simulating analog keyboard inputs (`left`, `right`, `up`, `down`) via the engine's `Input.parse_input_event()` API.
+*   **Fire Button**: A static button on the bottom right of the screen. Tapping/holding triggers `Input.action_press("shoot")` and `Input.action_release("shoot")`.
 
 ## Game flow
 

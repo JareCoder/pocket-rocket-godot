@@ -37,3 +37,11 @@ func load_username() -> String:
 			username = result
 	# username is typed String with default "", so this is always safe
 	return username if username is String else ""
+
+## Helper to determine if we should enable/allow touch controls
+func is_touch_device() -> bool:
+	if OS.has_feature("mobile"):
+		return true
+	if OS.has_feature("editor") and DisplayServer.is_touchscreen_available():
+		return true
+	return false

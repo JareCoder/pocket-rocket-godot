@@ -15,6 +15,10 @@ var enabled_tracks: Array[String] = [
 	"res://Audio/Music/Aylex - LOUD.mp3",
 ]
 
+## Whether on-screen touch controls are enabled on touchscreen devices
+var touch_controls_enabled: bool = true
+
+
 func _ready() -> void:
 	_ensure_buses()
 	_load()
@@ -42,6 +46,7 @@ func save() -> void:
 	cfg.set_value("audio", "lobby_music_volume", lobby_music_volume)
 	cfg.set_value("audio", "game_music_volume", game_music_volume)
 	cfg.set_value("audio", "enabled_tracks", enabled_tracks)
+	cfg.set_value("controls", "touch_controls_enabled", touch_controls_enabled)
 	cfg.save(SAVE_PATH)
 
 func _load() -> void:
@@ -54,6 +59,7 @@ func _load() -> void:
 	var saved_tracks = cfg.get_value("audio", "enabled_tracks", enabled_tracks)
 	if saved_tracks is Array and not saved_tracks.is_empty():
 		enabled_tracks = saved_tracks
+	touch_controls_enabled = cfg.get_value("controls", "touch_controls_enabled", touch_controls_enabled)
 	# Guard: ensure at least one track is always enabled
 	if enabled_tracks.is_empty():
 		enabled_tracks = ["res://Audio/Music/Aylex - This Is Phonk.mp3"]

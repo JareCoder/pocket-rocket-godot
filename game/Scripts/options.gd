@@ -8,6 +8,8 @@ var start_menu_scene: String = "res://Scenes/start_menu.tscn"
 
 @onready var tracks_button: Button = %TracksButton
 @onready var tracks_panel: VBoxContainer = %TracksPanel
+@onready var fullscreen_button: CheckButton = %FullscreenButton
+@onready var touch_controls_button: CheckButton = %TouchControlsButton
 
 @onready var track_buttons: Array[CheckButton] = [
 	%TrackButton1,
@@ -46,6 +48,20 @@ func _ready() -> void:
 	tracks_panel.visible = false
 	tracks_button.text = "▶  Game Tracks"
 	tracks_button.pressed.connect(_on_tracks_button_pressed)
+
+	# Set up Fullscreen button
+	fullscreen_button.button_pressed = (DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN)
+	fullscreen_button.toggled.connect(_on_fullscreen_toggled)
+
+	# Set up Touch Controls button
+	if Global.is_touch_device():
+		touch_controls_button.disabled = false
+		touch_controls_button.button_pressed = Settings.touch_controls_enabled
+		touch_controls_button.toggled.connect(_on_touch_controls_toggled)
+	else:
+		touch_controls_button.disabled = true
+		touch_controls_button.button_pressed = false
+		touch_controls_button.text = "Touch Controls (N/A)"
 
 func _on_sfx_volume_changed(value: float) -> void:
 	Settings.sfx_volume = value
@@ -92,6 +108,16 @@ func _on_track_toggled(pressed: bool, index: int) -> void:
 		if not Settings.enabled_tracks.has(path):
 			Settings.enabled_tracks.append(path)
 			
+	Settings.save()
+
+func _on_fullscreen_toggled(pressed: bool) -> void:
+	if pressed:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+func _on_touch_controls_toggled(pressed: bool) -> void:
+	Settings.touch_controls_enabled = pressed
 	Settings.save()
 
 func _on_back_button_pressed() -> void:

@@ -78,3 +78,16 @@ shoot={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+
+[display]
+
+window/size/viewport_width=1152
+window/size/viewport_height=648
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+window/handheld/orientation="landscape"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
