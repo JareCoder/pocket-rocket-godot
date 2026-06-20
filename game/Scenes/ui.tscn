@@ -22,6 +22,17 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.05, 0.05, 0.08, 0.35)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="UI" type="CanvasLayer" unique_id=1621935616 groups=["ui"]]
 script = ExtResource("1_nf4gj")
 
@@ -46,48 +57,63 @@ text = "0"
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -40.0
-offset_right = 109.0
+offset_top = -110.0
+offset_right = 140.0
 grow_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="VBuffersContainer" type="VBoxContainer" parent="BuffersMargin" unique_id=1054941861]
 layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
 
-[node name="ShieldContainer" type="HBoxContainer" parent="BuffersMargin/VBuffersContainer" unique_id=615349262]
+[node name="ShieldPanel" type="PanelContainer" parent="BuffersMargin/VBuffersContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="ShieldContainer" type="HBoxContainer" parent="BuffersMargin/VBuffersContainer/ShieldPanel" unique_id=615349262]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldContainer" unique_id=833393105]
+[node name="TextureRect" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldPanel/ShieldContainer" unique_id=833393105]
 layout_mode = 2
 texture = ExtResource("3_2246s")
 
-[node name="TextureRect2" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldContainer" unique_id=144874867]
+[node name="TextureRect2" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldPanel/ShieldContainer" unique_id=144874867]
 layout_mode = 2
 texture = ExtResource("3_2246s")
 
-[node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldContainer" unique_id=105603070]
+[node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/ShieldPanel/ShieldContainer" unique_id=105603070]
 layout_mode = 2
 texture = ExtResource("3_2246s")
 
-[node name="HpContainer" type="HBoxContainer" parent="BuffersMargin/VBuffersContainer" unique_id=1293884482]
+[node name="HpPanel" type="PanelContainer" parent="BuffersMargin/VBuffersContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
+
+[node name="HpContainer" type="HBoxContainer" parent="BuffersMargin/VBuffersContainer/HpPanel" unique_id=1293884482]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 5
 
-[node name="TextureRect" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=854349187]
+[node name="TextureRect" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpPanel/HpContainer" unique_id=854349187]
 layout_mode = 2
 texture = ExtResource("3_nf4gj")
 
-[node name="TextureRect2" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=707505552]
+[node name="TextureRect2" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpPanel/HpContainer" unique_id=707505552]
 layout_mode = 2
 texture = ExtResource("3_nf4gj")
 
-[node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpContainer" unique_id=1001286794]
+[node name="TextureRect3" type="TextureRect" parent="BuffersMargin/VBuffersContainer/HpPanel/HpContainer" unique_id=1001286794]
 layout_mode = 2
 texture = ExtResource("3_nf4gj")
 

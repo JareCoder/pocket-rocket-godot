@@ -23,23 +23,25 @@ func _on_song_started(title: String) -> void:
 	_popup_tween.tween_callback(func(): $MusicPopup.visible = false)
 
 func set_health(amount):
-	for child in $BuffersMargin/VBuffersContainer/HpContainer.get_children():
+	for child in %HpContainer.get_children():
 		child.queue_free()
 		
 	for i in amount:
 		var text_rect = TextureRect.new()
 		text_rect.texture = hpTexture
-		$BuffersMargin/VBuffersContainer/HpContainer.add_child(text_rect)
+		%HpContainer.add_child(text_rect)
 		text_rect.stretch_mode = TextureRect.STRETCH_KEEP
 
 func set_shield(amount):
-	for child in $BuffersMargin/VBuffersContainer/ShieldContainer.get_children():
+	%ShieldPanel.visible = amount > 0
+	
+	for child in %ShieldContainer.get_children():
 		child.queue_free()
 		
 	for i in amount:
 		var text_rect = TextureRect.new()
 		text_rect.texture = shieldTexture
-		$BuffersMargin/VBuffersContainer/ShieldContainer.add_child(text_rect)
+		%ShieldContainer.add_child(text_rect)
 		text_rect.stretch_mode = TextureRect.STRETCH_KEEP
 
 func _on_score_timer_timeout() -> void:
