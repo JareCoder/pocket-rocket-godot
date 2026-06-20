@@ -37,7 +37,12 @@ func _load_page(page: int) -> void:
 		%StatusLabel.visible = true
 	else:
 		for entry in scores:
-			_add_row(entry.get("rank", 0), entry.get("username", "?"), entry.get("score", 0))
+			_add_row(
+					entry.get("rank", 0),
+					entry.get("username", "?"),
+					entry.get("score", 0),
+					entry.get("time_played", 0)
+			)
 
 	%PageLabel.text = "Page %d / %d" % [_current_page, _total_pages]
 	%PrevButton.disabled = _current_page <= 1
@@ -49,9 +54,8 @@ func _clear_entries() -> void:
 		child.queue_free()
 
 
-func _add_row(rank: int, username: String, score: int) -> void:
+func _add_row(rank: int, username: String, score: int, time_played: int) -> void:
 	var hbox := HBoxContainer.new()
-	#hbox.theme_override_constants.separation = 0
 
 	# Highlight top 3
 	var row_color := Color.WHITE
@@ -62,13 +66,15 @@ func _add_row(rank: int, username: String, score: int) -> void:
 	elif rank == 3:
 		row_color = Color(0.8, 0.5, 0.2, 1.0)     # bronze
 
-	var rank_lbl := _make_label("#%d" % rank, 70.0, row_color, HORIZONTAL_ALIGNMENT_LEFT)
-	var name_lbl := _make_label(username, 0.0, row_color, HORIZONTAL_ALIGNMENT_LEFT, true)
-	var score_lbl := _make_label(_format_score(score), 90.0, row_color, HORIZONTAL_ALIGNMENT_RIGHT)
+	var rank_lbl  := _make_label("#%d" % rank, 70.0, row_color, HORIZONTAL_ALIGNMENT_LEFT)
+	var name_lbl  := _make_label(username, 0.0, row_color, HORIZONTAL_ALIGNMENT_LEFT, true)
+	var score_lbl := _make_label(str(score), 80.0, row_color, HORIZONTAL_ALIGNMENT_RIGHT)
+	var time_lbl  := _make_label(_format_time(time_played), 90.0, row_color, HORIZONTAL_ALIGNMENT_RIGHT)
 
 	hbox.add_child(rank_lbl)
 	hbox.add_child(name_lbl)
 	hbox.add_child(score_lbl)
+	hbox.add_child(time_lbl)
 
 	%EntriesContainer.add_child(hbox)
 
@@ -89,7 +95,7 @@ func _make_label(text: String, min_width: float, color: Color,
 
 
 ## Format seconds as m:ss (e.g. 312 → "5:12")
-func _format_score(seconds: int) -> String:
+func _format_time(seconds: int) -> String:
 	var m := seconds / 60
 	var s := seconds % 60
 	return "%d:%02d" % [m, s]

@@ -107,7 +107,7 @@ router.post('/end', (req, res) => {
 
   // --- 7. Mark token used & persist score (atomic) ---
   stmts.markSessionUsed.run(jti);
-  stmts.insertScore.run(username, scoreInt, now);
+  stmts.insertScore.run(username, scoreInt, elapsedSeconds, now);
 
   // --- 8. Return rank ---
   const { rank } = stmts.getRank.get(scoreInt);

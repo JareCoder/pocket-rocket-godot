@@ -36,7 +36,7 @@ grow_vertical = 2
 
 [node name="VBox" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(620.0, 0.0)
+custom_minimum_size = Vector2(720.0, 0.0)
 theme_override_constants/separation = 14
 
 [node name="Title" type="Label" parent="CenterContainer/VBox"]
@@ -67,6 +67,15 @@ theme_override_font_sizes/font_size = 16
 text = "PILOT"
 
 [node name="ScoreHeader" type="Label" parent="CenterContainer/VBox/HeaderRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(80.0, 0.0)
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_fonts/font = ExtResource("3_lb")
+theme_override_font_sizes/font_size = 16
+text = "SCORE"
+horizontal_alignment = 2
+
+[node name="TimeHeader" type="Label" parent="CenterContainer/VBox/HeaderRow"]
 layout_mode = 2
 custom_minimum_size = Vector2(90.0, 0.0)
 theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)

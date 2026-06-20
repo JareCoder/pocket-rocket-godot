@@ -37,6 +37,7 @@ router.get('/', (req, res) => {
     rank: offset + i + 1,
     username: row.username,
     score: row.score,
+    time_played: row.time_played,
     date: new Date(row.created_at).toISOString(),
   }));
 

@@ -17,10 +17,11 @@ db.exec(`
   PRAGMA journal_mode = WAL;
 
   CREATE TABLE IF NOT EXISTS scores (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    username   TEXT    NOT NULL,
-    score      INTEGER NOT NULL,
-    created_at INTEGER NOT NULL
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    username    TEXT    NOT NULL,
+    score       INTEGER NOT NULL,
+    time_played INTEGER NOT NULL DEFAULT 0,
+    created_at  INTEGER NOT NULL
   );
 
   CREATE INDEX IF NOT EXISTS idx_scores_score ON scores (score DESC);
@@ -52,11 +53,11 @@ const stmts = {
   ),
 
   insertScore: db.prepare(
-    `INSERT INTO scores (username, score, created_at) VALUES (?, ?, ?)`
+    `INSERT INTO scores (username, score, time_played, created_at) VALUES (?, ?, ?, ?)`
   ),
 
   getLeaderboard: db.prepare(
-    `SELECT username, score, created_at FROM scores
+    `SELECT username, score, time_played, created_at FROM scores
      ORDER BY score DESC
      LIMIT ? OFFSET ?`
   ),
