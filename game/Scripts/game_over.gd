@@ -1,6 +1,7 @@
 extends Control
 
 var game_start_scene: PackedScene = load("res://Scenes/game_start.tscn")
+var start_menu_scene: PackedScene = load("res://Scenes/start_menu.tscn")
 
 func _ready() -> void:
 	LobbyMusic.play()
@@ -32,3 +33,6 @@ func _submit_score() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
 		get_tree().change_scene_to_packed(game_start_scene)
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_packed(start_menu_scene)

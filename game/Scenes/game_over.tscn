@@ -4,8 +4,7 @@
 [ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="1_ojehl"]
 [ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="2_8fo1c"]
 [ext_resource type="AudioStream" uid="uid://br1b16ofjp3vi" path="res://Audio/SFX/sfx_lose.ogg" id="4_eoghk"]
-[ext_resource type="AudioStream" uid="uid://fankdpirdj5w" path="res://Audio/Music/Calima - Usual Rigmarole.mp3" id="5_14u15"]
-[ext_resource type="Script" uid="uid://dxauyra6j604v" path="res://Scripts/music_player.gd" id="6_j3ryr"]
+
 
 [node name="GameOver" type="Control" unique_id=652175965]
 layout_mode = 3
@@ -73,6 +72,14 @@ theme_override_font_sizes/font_size = 16
 text = ""
 horizontal_alignment = 1
 
+[node name="MainMenuButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=300000003]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_8fo1c")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+text = "← Main Menu"
+horizontal_alignment = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=2088484806]
 layout_mode = 1
 anchors_preset = 7
@@ -97,10 +104,4 @@ text = "Press space to play again"
 stream = ExtResource("4_eoghk")
 autoplay = true
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1381766838]
-stream = ExtResource("5_14u15")
-volume_db = -25.0
-autoplay = true
-script = ExtResource("6_j3ryr")
-
-[connection signal="finished" from="MusicPlayer" to="MusicPlayer" method="_on_finished"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
