@@ -4,6 +4,8 @@
 [ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="1_juhg0"]
 [ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="1_m6uer"]
 [ext_resource type="Texture2D" uid="uid://bm3jmme60mo8f" path="res://Assets/PNG/playerShip1_blue.png" id="3_a43kq"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="4_font"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="5_font"]
 
 [node name="StartMenu" type="Control" unique_id=856087407]
 layout_mode = 3
@@ -33,33 +35,55 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -532.0
-offset_top = -116.0
+offset_top = -170.0
 offset_right = -84.0
-offset_bottom = 116.0
+offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 8
 
 [node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=515735597]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme = ExtResource("1_juhg0")
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 32
 text = "Play"
 alignment = 0
 
-[node name="LeaderboardButton" type="Button" parent="VBoxContainer" unique_id=1494813305]
+[node name="HowToPlayButton" type="Button" parent="VBoxContainer" unique_id=12850929]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme = ExtResource("1_juhg0")
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 32
+text = "How to Play"
+alignment = 0
+
+[node name="LeaderboardButton" type="Button" parent="VBoxContainer" unique_id=1494813305]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme = ExtResource("1_juhg0")
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 32
 text = "Leaderboard"
 alignment = 0
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=92850928]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme = ExtResource("1_juhg0")
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 32
 text = "Options"
 alignment = 0
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=718202008]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme = ExtResource("1_juhg0")
+theme_override_fonts/font = ExtResource("5_font")
+theme_override_font_sizes/font_size = 32
 text = "Credits"
 alignment = 0
 
@@ -88,10 +112,14 @@ offset_top = 64.0
 offset_right = 374.5
 offset_bottom = 151.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_font")
 theme_override_font_sizes/font_size = 63
-text = "Space Game Placeholder"
+text = "POCKET ROCKET"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

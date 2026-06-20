@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://howtoplay001"]
+
+[ext_resource type="Script" path="res://Scripts/how_to_play.gd" id="1_hp"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="2_hp"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="3_hp"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="4_hp"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="5_hp"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hp")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_hp")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hp")
+theme_override_font_sizes/font_size = 42
+text = "How to Play"
+horizontal_alignment = 1
+
+[node name="Separator0" type="HSeparator" parent="CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBox"]
+custom_minimum_size = Vector2(0, 420)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ContentVBox" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="ControlsHeader" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.380392, 0.772549, 1, 1)
+theme_override_fonts/font = ExtResource("2_hp")
+theme_override_font_sizes/font_size = 22
+text = "CONTROLS"
+
+[node name="MoveInfo" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_hp")
+theme_override_font_sizes/font_size = 16
+text = "• Move Ship: W/A/S/D or Arrow Keys"
+
+[node name="ShootInfo" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_hp")
+theme_override_font_sizes/font_size = 16
+text = "• Shoot Lasers: Spacebar or Left Mouse Button"
+
+[node name="GoalInfo" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_hp")
+theme_override_font_sizes/font_size = 16
+text = "• Survive: Dodge incoming meteors. Collect Shield and Health items to stay alive!"
+autowrap_mode = 3
+
+[node name="Separator1" type="HSeparator" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+
+[node name="LeaderboardHeader" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.380392, 0.772549, 1, 1)
+theme_override_fonts/font = ExtResource("2_hp")
+theme_override_font_sizes/font_size = 22
+text = "LEADERBOARD"
+
+[node name="LeaderboardInfo" type="Label" parent="CenterContainer/VBox/ScrollContainer/ContentVBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_hp")
+theme_override_font_sizes/font_size = 16
+text = "• Survival Score: Your score is the number of seconds you survive.
+• Auto-Submit: After a Game Over, your score and total play time are sent to our global public leaderboard.
+• High Ranks: Submit a unique name to claim your spot on the top 3 gold, silver, and bronze podiums!"
+autowrap_mode = 3
+
+[node name="Separator2" type="HSeparator" parent="CenterContainer/VBox"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBox"]
+layout_mode = 2
+theme = ExtResource("5_hp")
+theme_override_fonts/font = ExtResource("3_hp")
+theme_override_font_sizes/font_size = 20
+text = "← Back to Menu"
+
+[connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]

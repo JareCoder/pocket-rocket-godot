@@ -40,12 +40,13 @@ game/
 │   ├── laser.gd         ← Laser projectile behaviour
 │   ├── bonus_item.gd    ← Base for collectible items
 │   ├── destroy_offscreen.gd ← Frees nodes that leave the viewport
-│   ├── start_menu.gd    ← Main menu buttons (Play → game_start, Leaderboard, Options, Credits)
+│   ├── start_menu.gd    ← Main menu buttons (Play → game_start, How to Play, Leaderboard, Options, Credits)
 │   ├── game_start.gd    ← Username entry + /game/start call; shared by first-play and restart
 │   ├── game_over.gd     ← Score display + /game/end call + rank display
 │   ├── leaderboard.gd   ← Paginated leaderboard screen
 │   ├── options.gd       ← Audio options (volume & tracks) menu controller
 │   ├── credits.gd       ← Credits screen with expandable sections
+│   ├── how_to_play.gd   ← How to Play screen (WASD/arrows/shoot/leaderboard description)
 │   └── ui.gd            ← HUD logic (including Now Playing popup)
 ├── default_bus_layout.tres ← Master, SFX, LobbyMusic, GameMusic audio buses
 └── project.godot
@@ -184,6 +185,7 @@ game_start.tscn  (skips UI — reuses saved username → /game/start)
     ▼
 level.tscn  (restart)
 
+start_menu.tscn → how_to_play.tscn  (How to Play button)
 start_menu.tscn → leaderboard.tscn  (Leaderboard button)
 start_menu.tscn → options.tscn      (Options button)
 start_menu.tscn → credits.tscn      (Credits button)
@@ -195,6 +197,7 @@ start_menu.tscn → credits.tscn      (Credits button)
 - **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission. On Space/Enter navigates to `game_start.tscn` (not directly to `level.tscn`).
 - **`leaderboard.gd`**: loads page 1 on `_ready`, renders rows with gold/silver/bronze for the top 3, supports Prev/Next pagination. Each row shows `score` as a plain integer and `time_played` formatted as `m:ss`.
 - **`credits.gd`**: Manages the Credits screen containing expandable buttons for "Graphics & Sound" and "Music". Toggles display container visibility and updates arrow indicators dynamically. Handles clicking RichTextLabel URLs via `OS.shell_open`.
+- **`how_to_play.gd`**: Manages the How to Play screen showing controls and leaderboard information.
 
 ## Conventions
 
