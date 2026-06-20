@@ -1,6 +1,6 @@
 extends Control
 
-var level_scene: PackedScene = load("res://Scenes/level.tscn")
+var game_start_scene: PackedScene = load("res://Scenes/game_start.tscn")
 
 func _ready() -> void:
 	%Score.text = "Score: " + str(Global.score)
@@ -30,4 +30,4 @@ func _submit_score() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_select"):
-		get_tree().change_scene_to_packed(level_scene)
+		get_tree().change_scene_to_packed(game_start_scene)

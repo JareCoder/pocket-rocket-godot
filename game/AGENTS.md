@@ -38,7 +38,8 @@ game/
 │   ├── laser.gd         ← Laser projectile behaviour
 │   ├── bonus_item.gd    ← Base for collectible items
 │   ├── destroy_offscreen.gd ← Frees nodes that leave the viewport
-│   ├── start_menu.gd    ← Main menu + username entry + /game/start call
+│   ├── start_menu.gd    ← Main menu buttons (Play → game_start, Leaderboard)
+│   ├── game_start.gd    ← Username entry + /game/start call; shared by first-play and restart
 │   ├── game_over.gd     ← Score display + /game/end call + rank display
 │   ├── leaderboard.gd   ← Paginated leaderboard screen
 │   ├── music_player.gd  ← Background music looping
@@ -123,7 +124,10 @@ Defined in `project.godot`:
 
 ```
 start_menu.tscn
-    │  (Play → username panel → /game/start)
+    │  (Play)
+    ▼
+game_start.tscn  (username entry if none saved → /game/start)
+    │
     ▼
 level.tscn
     │  (health reaches 0)
@@ -131,14 +135,18 @@ level.tscn
 game_over.tscn   (submits score via /game/end, shows rank)
     │  (Space/Enter)
     ▼
+game_start.tscn  (skips UI — reuses saved username → /game/start)
+    │
+    ▼
 level.tscn  (restart)
 
 start_menu.tscn → leaderboard.tscn  (Leaderboard button)
 ```
 
-- **`start_menu.gd`**: Play button shows a `UsernamePanel` overlay. On confirm, validates the name, calls `Api.start_game()`, stores the returned JWT in `Global.session_token`, then transitions to `level.tscn`. If the backend is unreachable, an inline warning is shown and the game starts anyway (graceful degradation — no score will be submitted).
+- **`start_menu.gd`**: Play button navigates to `game_start.tscn`. No session logic here.
+- **`game_start.gd`**: Owns all session-start logic. On `_ready`, if a saved username exists (restart path) it calls `Api.start_game()` immediately and skips the UI; otherwise it shows the username panel, validates input, and then calls `Api.start_game()`. On backend failure it shows a 1.5 s warning then proceeds (graceful degradation). After the token is stored in `Global.session_token` the scene transitions to `level.tscn`.
 - **`level.gd`**: spawns meteors and bonus items, handles health and shield state.
-- **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission on restart.
+- **`game_over.gd`**: calls `Api.end_game()` on `_ready`, shows "Submitting score..." while waiting, then displays rank on success or an offline warning if the token is empty or the call fails. Clears `Global.session_token` after the call to prevent double submission. On Space/Enter navigates to `game_start.tscn` (not directly to `level.tscn`).
 - **`leaderboard.gd`**: loads page 1 on `_ready`, renders rows with gold/silver/bronze for the top 3, supports Prev/Next pagination.
 
 ## Conventions

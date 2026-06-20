@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://game_start001"]
+
+[ext_resource type="Script" path="res://Scripts/game_start.gd" id="1_gs"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="2_gs"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="3_gs"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="4_gs"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="5_gs"]
+
+[node name="GameStart" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gs")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gs")
+stretch_mode = 1
+
+[node name="UsernamePanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -264.68
+offset_top = -172.71
+offset_right = 175.31665
+offset_bottom = 127.28998
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+
+[node name="MarginContainer" type="MarginContainer" parent="UsernamePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="UsernamePanel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 64
+
+[node name="TitleLabel" type="Label" parent="UsernamePanel/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_gs")
+theme_override_font_sizes/font_size = 20
+text = "Enter your pilot name"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UsernamePanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UsernamePanel/MarginContainer/VBox/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="UsernameInput" type="LineEdit" parent="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_gs")
+theme_override_font_sizes/font_size = 18
+placeholder_text = "Pilot name..."
+alignment = 1
+max_length = 32
+
+[node name="UsernameError" type="Label" parent="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.6, 0.2, 1)
+theme_override_fonts/font = ExtResource("5_gs")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxButtons" type="HBoxContainer" parent="UsernamePanel/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="UsernamePanel/MarginContainer/VBox/HBoxButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_gs")
+text = "Back"
+
+[node name="ConfirmButton" type="Button" parent="UsernamePanel/MarginContainer/VBox/HBoxButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_gs")
+text = "Let's go!"
+
+[connection signal="text_submitted" from="UsernamePanel/MarginContainer/VBox/MarginContainer/VBoxContainer/UsernameInput" to="." method="_on_confirm_username_pressed"]
+[connection signal="pressed" from="UsernamePanel/MarginContainer/VBox/HBoxButtons/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="UsernamePanel/MarginContainer/VBox/HBoxButtons/ConfirmButton" to="." method="_on_confirm_username_pressed"]
