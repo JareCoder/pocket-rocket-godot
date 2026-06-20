@@ -1,6 +1,10 @@
 extends Node2D
 
 @export var starAmount: int = 17
+## Base meteor spawn interval (wait_time of MeteorTimer) at 1920px width.
+@export var base_spawn_time: float = 0.15
+## Reference width at which the base spawn interval is applied.
+@export var base_spawn_width: float = 1920.0
 
 var meteor_scene: PackedScene = load("res://Scenes/meteor.tscn")
 var laser_scene: PackedScene = load("res://Scenes/laser.tscn")
@@ -19,7 +23,13 @@ func _ready():
 	LobbyMusic.stop()
 	GameMusic.play_random()
 	size = get_viewport().get_visible_rect().size
-	print(size)
+	print("Level ready size: ", size)
+	
+	# Connect viewport resize signal for dynamic scaling
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	
+	# Center player ship initially at the bottom-center of the screen
+	$Player.position = Vector2(size.x / 2.0, size.y - 120.0)
 	
 	# Instantiate mobile touch controls if touchscreen is available and enabled in settings
 	if Global.is_touch_device() and Settings.touch_controls_enabled:
@@ -34,11 +44,12 @@ func _ready():
 	if shield <= 0:
 		$Player/Shield.visible = false
 	
+	# Spawn stars covering a large region so they remain visible when resized
 	for i in starAmount:
 		var star = star_scene.instantiate()
 		
-		var random_x = rng.randi_range(0, int(size.x))
-		var random_y = rng.randi_range(0, int(size.y))
+		var random_x = rng.randi_range(0, max(3840, int(size.x)))
+		var random_y = rng.randi_range(0, max(2160, int(size.y)))
 		star.position = Vector2(random_x, random_y)
 		
 		var random_scale = rng.randf_range(0.5, 2)
@@ -49,6 +60,9 @@ func _ready():
 		star_sprite.frame = rng.randi_range(0, 10)
 		
 		$Stars.add_child(star)
+		
+	# Apply dynamic sizing to walls, background and meteor spawns immediately
+	_on_viewport_size_changed()
 		
 	get_tree().call_group('ui', 'set_shield', shield)
 	get_tree().call_group('ui', 'set_health', health)
@@ -176,3 +190,53 @@ func _spawn_item(sceneToSpawn):
 	new_item.position = Vector2(random_x, random_y)
 	
 	return new_item
+
+func _on_viewport_size_changed() -> void:
+	size = get_viewport().get_visible_rect().size
+	print("Viewport size changed: ", size)
+	
+	# Reposition and resize borders (duplicate shapes to prevent shared resource issues)
+	if has_node("Borders/LeftWall"):
+		$Borders/LeftWall.position = Vector2(-22, size.y / 2.0)
+		$Borders/LeftWall/CollisionShape2D.position = Vector2.ZERO
+		var shape = $Borders/LeftWall/CollisionShape2D.shape.duplicate()
+		shape.size = Vector2(44, size.y + 100)
+		$Borders/LeftWall/CollisionShape2D.shape = shape
+		
+	if has_node("Borders/RightWall"):
+		$Borders/RightWall.position = Vector2(size.x + 22, size.y / 2.0)
+		$Borders/RightWall/CollisionShape2D.position = Vector2.ZERO
+		var shape = $Borders/RightWall/CollisionShape2D.shape.duplicate()
+		shape.size = Vector2(44, size.y + 100)
+		$Borders/RightWall/CollisionShape2D.shape = shape
+		
+	if has_node("Borders/TopWall2"):
+		$Borders/TopWall2.position = Vector2(size.x / 2.0, -24)
+		$Borders/TopWall2/CollisionShape2D.position = Vector2.ZERO
+		var shape = $Borders/TopWall2/CollisionShape2D.shape.duplicate()
+		shape.size = Vector2(size.x + 100, 48)
+		$Borders/TopWall2/CollisionShape2D.shape = shape
+		
+	if has_node("Borders/BotWall"):
+		$Borders/BotWall.position = Vector2(size.x / 2.0, size.y + 24)
+		$Borders/BotWall/CollisionShape2D.position = Vector2.ZERO
+		var shape = $Borders/BotWall/CollisionShape2D.shape.duplicate()
+		shape.size = Vector2(size.x + 100, 48)
+		$Borders/BotWall/CollisionShape2D.shape = shape
+		
+	# Update Background to cover the new size and repeat tiling
+	if has_node("Background"):
+		$Background.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+		$Background.region_enabled = true
+		$Background.region_rect = Rect2(Vector2.ZERO, size)
+		$Background.position = size / 2.0
+		$Background.scale = Vector2.ONE
+		
+	# Balance meteor spawn rate dynamically based on screen width
+	if has_node("MeteorTimer"):
+		$MeteorTimer.wait_time = base_spawn_time * (base_spawn_width / max(1.0, size.x))
+		
+	# Clamp player ship position so they aren't pushed off-screen if the window was shrunk
+	if has_node("Player"):
+		$Player.position.x = clamp($Player.position.x, 32.0, size.x - 32.0)
+		$Player.position.y = clamp($Player.position.y, 32.0, size.y - 32.0)

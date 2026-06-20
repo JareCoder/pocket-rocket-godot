@@ -28,10 +28,8 @@ var fire_border_color := Color(1.0, 0.2, 0.2, 0.8) # neon red
 var fire_pressed_color := Color(1.0, 0.2, 0.2, 0.6)
 
 func _ready() -> void:
-	# Compute position relative to default viewport size
-	var viewport_size = get_viewport().get_visible_rect().size
-	fire_button_center = Vector2(viewport_size.x - 140, viewport_size.y - 140)
-	queue_redraw()
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -136,3 +134,8 @@ func _draw() -> void:
 	draw_arc(fire_button_center, fire_button_radius * 0.4, 0, TAU, 24, fire_border_color, 1.5, true)
 	draw_line(fire_button_center - Vector2(20, 0), fire_button_center + Vector2(20, 0), fire_border_color, 2.0)
 	draw_line(fire_button_center - Vector2(0, 20), fire_button_center + Vector2(0, 20), fire_border_color, 2.0)
+
+func _on_viewport_size_changed() -> void:
+	var viewport_size = get_viewport().get_visible_rect().size
+	fire_button_center = Vector2(viewport_size.x - 140, viewport_size.y - 140)
+	queue_redraw()

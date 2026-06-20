@@ -13,6 +13,9 @@ var _popup_tween: Tween = null
 
 func _ready() -> void:
 	GameMusic.song_started.connect(_on_song_started)
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	await get_tree().process_frame
+	_on_viewport_size_changed()
 
 func _on_song_started(title: String) -> void:
 	if _popup_tween:
@@ -62,3 +65,19 @@ func add_score(amount: int) -> void:
 	_total_score += amount
 	$ScoreMargin/Label.text = str(_total_score)
 	Global.score = _total_score
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	var scale_factor = 1.3 if (size.x < 1200 or size.y < 700) else 1.0
+	
+	if has_node("ScoreMargin"):
+		$ScoreMargin.scale = Vector2(scale_factor, scale_factor)
+		$ScoreMargin.pivot_offset = Vector2($ScoreMargin.size.x / 2.0, 0.0)
+		
+	if has_node("BuffersMargin"):
+		$BuffersMargin.scale = Vector2(scale_factor, scale_factor)
+		$BuffersMargin.pivot_offset = Vector2(0.0, $BuffersMargin.size.y)
+		
+	if has_node("MusicPopup"):
+		$MusicPopup.scale = Vector2(scale_factor, scale_factor)
+		$MusicPopup.pivot_offset = $MusicPopup.size

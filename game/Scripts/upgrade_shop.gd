@@ -12,6 +12,8 @@ var start_menu_scene: PackedScene = load("res://Scenes/start_menu.tscn")
 var _card_nodes: Dictionary = {}
 
 func _ready() -> void:
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	_build_cards()
 	_refresh_ui()
 	
@@ -198,3 +200,17 @@ func _on_give_flyons_pressed() -> void:
 func _on_clear_upgrades_pressed() -> void:
 	Upgrades.debug_reset()
 	_refresh_ui()
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	if has_node("MarginContainer"):
+		var margin_container = $MarginContainer
+		var h_margin = 15 if size.x < 600 else 40
+		var v_margin = 15 if size.y < 500 else 30
+		margin_container.add_theme_constant_override("margin_left", h_margin)
+		margin_container.add_theme_constant_override("margin_right", h_margin)
+		margin_container.add_theme_constant_override("margin_top", v_margin)
+		margin_container.add_theme_constant_override("margin_bottom", v_margin)
+		
+	if has_node("MarginContainer/VBoxOuter/Footer"):
+		$MarginContainer/VBoxOuter/Footer.vertical = size.x < 600

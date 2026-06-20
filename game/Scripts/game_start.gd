@@ -16,6 +16,8 @@ static var level_scene: PackedScene = load("res://Scenes/level.tscn")
 var _username_regex := RegEx.new()
 
 func _ready() -> void:
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	_username_regex.compile("^[\\w\\- ]+$")
 
 	var saved: String = Global.load_username()
@@ -81,3 +83,12 @@ func _start_session(username: String) -> void:
 		await get_tree().create_timer(1.5).timeout
 
 	get_tree().change_scene_to_packed(level_scene)
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	if has_node("UsernamePanel"):
+		var target_scale = 1.2 if size.x >= 550 else 1.0
+		$UsernamePanel.scale = Vector2(target_scale, target_scale)
+		$UsernamePanel.custom_minimum_size.x = min(440.0, (size.x - 20.0) / target_scale)
+		# Force centering manually on resize
+		$UsernamePanel.position = (size - $UsernamePanel.size * target_scale) / 2.0

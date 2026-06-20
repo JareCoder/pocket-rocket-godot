@@ -5,6 +5,9 @@ var start_menu_scene: PackedScene = load("res://Scenes/start_menu.tscn")
 var upgrade_shop_scene: PackedScene = load("res://Scenes/upgrade_shop.tscn")
 
 func _ready() -> void:
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	await get_tree().process_frame
+	_on_viewport_size_changed()
 	GameMusic.stop()
 	LobbyMusic.play()
 	%Score.text = "Score: " + str(Global.score)
@@ -52,3 +55,12 @@ func _on_main_menu_button_pressed() -> void:
 
 func _on_shop_button_pressed() -> void:
 	get_tree().change_scene_to_packed(upgrade_shop_scene)
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	if has_node("CenterContainer/VBoxContainer"):
+		var vbox = $CenterContainer/VBoxContainer
+		var scale_factor = 1.3 if (size.x < 1200 or size.y < 700) else 1.0
+		vbox.scale = Vector2(scale_factor, scale_factor)
+		vbox.custom_minimum_size.x = min(500.0, (size.x - 30.0) / scale_factor)
+		vbox.pivot_offset = vbox.size / 2.0

@@ -18,10 +18,20 @@ The game is built for **web export** (HTML5) and connects to a Node.js leaderboa
 | Physics | Jolt Physics (3D), default 2D |
 | Language | GDScript |
 | Stretch Mode | canvas_items |
-| Aspect Ratio | keep (16:9 ratio letterboxing/pillarboxing) |
+| Aspect Ratio | expand (dynamic screen size scaling) |
+| Base Resolution | 1920x1080 (FullHD) |
 | Orientation | landscape (forced on handhelds) |
 
 Project config is in `project.godot`. **Do not edit it by hand** — use the Godot editor for project settings, except for adding autoloads which can be done by editing the `[autoload]` section directly.
+Window size changes dynamically. `level.gd` handles resizing by repositioning the borders, tiling the background, clamping the player, and scaling the meteor spawn rate to maintain constant difficulty.
+
+### Responsive Layouts & UI Scaling
+
+Since the game uses `aspect = "expand"`, the UI layout must handle arbitrary screen resolutions and aspect ratios dynamically:
+- **Menu Container Sizing**: Menus (`options.gd`, `how_to_play.gd`, `leaderboard.gd`, `credits.gd`, `game_over.gd`) use `_on_viewport_size_changed()` to adjust their main control boundaries using `min(design_width, size.x - 30.0)` (`size.x - 20.0` for `game_start.gd`'s panel). This contracts margins down to 10px-15px on narrow viewports to maximize text wrap boundaries and readability.
+- **HUD & In-Game UI Scaling**: Elements like the score timer, life panels, and now-playing popup scale up by 30% (`scale_factor = 1.3`) on viewports under 1200px wide or 700px tall. Their pivot offsets are anchored to screen corners (top-center, bottom-left, bottom-right) to prevent drift.
+- **Start Menu Button Stacking**: Start menu buttons stack vertically on narrow aspect ratios to fit the screen, and switch back to horizontal side-by-side on wider screens.
+- **Upgrade Shop Margins & Collapsing Footer**: The shop adjusts its root `MarginContainer` constants down to `15` pixels (from `40`/`30` pixels) on small screens, and the footer collapses to a vertical layout on screens under 600px wide.
 
 ## Directory layout
 
@@ -236,8 +246,8 @@ Defined in `project.godot`:
 ### Mobile Touch Controls Overlay
 
 When `Global.is_touch_device()` is true and `Settings.touch_controls_enabled` is active, the level instantiates `touch_controls.tscn`.
-*   **Virtual Joystick**: A dynamic area on the left half of the screen. Pressing down creates a dynamic center point. Dragging moves the joystick handle, simulating analog keyboard inputs (`left`, `right`, `up`, `down`) via the engine's `Input.parse_input_event()` API.
-*   **Fire Button**: A static button on the bottom right of the screen. Tapping/holding triggers `Input.action_press("shoot")` and `Input.action_release("shoot")`.
+*   **Virtual Joystick**: A dynamic area on the left half of the screen (adjusts dynamically to viewport width). Pressing down creates a dynamic center point. Dragging moves the joystick handle, simulating analog keyboard inputs (`left`, `right`, `up`, `down`) via the engine's `Input.parse_input_event()` API.
+*   **Fire Button**: A static button positioned at the bottom right of the screen. It dynamically updates its position on viewport size change to stay in the bottom-right corner. Tapping/holding triggers `Input.action_press("shoot")` and `Input.action_release("shoot")`.
 
 ## Game flow
 

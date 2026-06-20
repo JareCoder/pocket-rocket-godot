@@ -8,6 +8,8 @@ var start_menu_scene: PackedScene = load("res://Scenes/start_menu.tscn")
 @onready var graphics_panel: VBoxContainer = %GraphicsPanel
 
 func _ready() -> void:
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	# Both panels start collapsed
 	music_panel.visible = false
 	graphics_panel.visible = false
@@ -36,3 +38,8 @@ func _on_link_clicked(meta: Variant) -> void:
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_packed(start_menu_scene)
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	if has_node("CenterContainer/VBox"):
+		$CenterContainer/VBox.custom_minimum_size.x = min(680.0, size.x - 30.0)

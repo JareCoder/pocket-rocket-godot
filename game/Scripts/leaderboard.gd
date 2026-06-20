@@ -8,6 +8,8 @@ var _font_thin: Font = load("res://Assets/Fonts/kenvector_future_thin.ttf")
 var _font_bold: Font = load("res://Assets/Fonts/kenvector_future.ttf")
 
 func _ready() -> void:
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
 	_load_page(1)
 
 func _load_page(page: int) -> void:
@@ -117,3 +119,8 @@ func _on_next_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/start_menu.tscn")
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	if has_node("CenterContainer/VBox"):
+		$CenterContainer/VBox.custom_minimum_size.x = min(720.0, size.x - 30.0)

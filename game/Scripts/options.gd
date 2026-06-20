@@ -36,6 +36,10 @@ func _ready() -> void:
 	game_music_slider.value_changed.connect(_on_game_music_volume_changed)
 	lobby_music_slider.value_changed.connect(_on_lobby_music_volume_changed)
 
+	# Connect viewport resize signal
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
+	_on_viewport_size_changed()
+
 	# Set up track toggle buttons
 	for i in range(TRACK_PATHS.size()):
 		var path = TRACK_PATHS[i]
@@ -119,6 +123,11 @@ func _on_fullscreen_toggled(pressed: bool) -> void:
 func _on_touch_controls_toggled(pressed: bool) -> void:
 	Settings.touch_controls_enabled = pressed
 	Settings.save()
+
+func _on_viewport_size_changed() -> void:
+	var size = get_viewport().get_visible_rect().size
+	if has_node("CenterContainer/VBox"):
+		$CenterContainer/VBox.custom_minimum_size.x = min(680.0, size.x - 30.0)
 
 func _on_back_button_pressed() -> void:
 	get_tree().change_scene_to_file(start_menu_scene)
