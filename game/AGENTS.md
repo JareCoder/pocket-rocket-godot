@@ -86,9 +86,11 @@ It applies these settings dynamically to the corresponding Godot AudioBuses on s
 ### `GameMusic` (`Global/game_music.gd`)
 
 Plays background music during gameplay. Routes through the `GameMusic` bus.
-- Loads the enabled tracks from `Settings.enabled_tracks`.
+- Extends `Node` instead of `AudioStreamPlayer` to avoid native method override warnings/errors.
+- Instantiates dedicated child `AudioStreamPlayer` nodes at startup for each track, preloading them.
 - Shuffles them to play in random sequence.
 - Emits `song_started(title: String)` when a new track starts.
+- Switches songs by triggering playback on the child player nodes to avoid runtime stream/voice reallocation stutter.
 
 ### `LobbyMusic` (`Global/lobby_music.gd`)
 
@@ -223,6 +225,11 @@ The project uses Godot's AudioServer bus system. Four buses are defined:
 - `SFX`: Sound effects (lasers, damage, explosions, game over sound). Nodes must have `bus = "SFX"`.
 - `LobbyMusic`: Menu music track player (`LobbyMusic` autoload).
 - `GameMusic`: In-game music track player (`GameMusic` autoload).
+
+### Web Export Audio Optimization
+To prevent stutters and freezes during gameplay:
+- The project configures `audio/general/default_playback_type.web=0` (Stream mode) in `project.godot`. This prevents Godot from pre-decoding entire multi-megabyte music files into memory on the main thread when they start.
+- `GameMusic` uses pre-instantiated child players so that stream-swapping doesn't force runtime audio voice reallocations.
 
 ### "Now Playing" Song Popup
 When a new song begins playing during level gameplay, `GameMusic` emits `song_started`. The HUD UI (`ui.gd`) listens for this and displays a semi-transparent, neon-bordered popup panel in the bottom-right corner. It animates using a Tween:
