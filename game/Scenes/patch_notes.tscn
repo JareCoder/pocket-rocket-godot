@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dolpphw2o7eqq"]
+
+[ext_resource type="Script" path="res://Scripts/patch_notes.gd" id="1_pn"]
+[ext_resource type="FontFile" uid="uid://bnw17kog7nysi" path="res://Assets/Fonts/kenvector_future.ttf" id="2_pn"]
+[ext_resource type="FontFile" uid="uid://ceiu1it6krn0l" path="res://Assets/Fonts/kenvector_future_thin.ttf" id="3_pn"]
+[ext_resource type="Texture2D" uid="uid://cgtx20yybnxh2" path="res://Assets/Backgrounds/purple.png" id="4_pn"]
+[ext_resource type="Theme" uid="uid://dqawjaipb4yyd" path="res://Assets/Themes/MainTheme.tres" id="5_pn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_notes"]
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+bg_color = Color(0.07, 0.06, 0.1, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.5, 0.8, 0.3)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="PatchNotes" type="Control" unique_id=549610808]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pn")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1740464728]
+modulate = Color(0.32915837, 0.3291584, 0.3291584, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_pn")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1827987610]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer" unique_id=1523595424]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="CenterContainer/VBox" unique_id=1630371216]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_pn")
+theme_override_font_sizes/font_size = 42
+text = "Patch Notes"
+horizontal_alignment = 1
+
+[node name="Separator0" type="HSeparator" parent="CenterContainer/VBox" unique_id=697484132]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/VBox" unique_id=282183746]
+custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ContentVBox" type="VBoxContainer" parent="CenterContainer/VBox/ScrollContainer" unique_id=2107382672]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+[node name="Separator3" type="HSeparator" parent="CenterContainer/VBox" unique_id=1322104109]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CenterContainer/VBox" unique_id=1778687740]
+layout_mode = 2
+theme = ExtResource("5_pn")
+theme_override_fonts/font = ExtResource("3_pn")
+theme_override_font_sizes/font_size = 20
+text = "Back to Menu"
+
+[connection signal="pressed" from="CenterContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]
+

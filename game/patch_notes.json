@@ -1,0 +1,23 @@
+[
+  {
+    "version": "v1.1.0",
+    "title": "Web & Performance Patch",
+    "date": "2026-06-21",
+    "notes": [
+      "[color=#7ad4ff]• Fix Web Audio Stutter: [/color] No more freezing on song change",
+      "[color=#7ad4ff]• Fix Dynamic Star Rendering:[/color] Fix background stars",
+      "[color=#7ad4ff]• Fix Meteor Despawning:[/color] They don't despawn on screen anymore...",
+      "[color=#7ad4ff]• Point Ball Logic:[/color] No more ragebait. Point balls now travel the longest distance possible across the screen."
+    ]
+  },
+  {
+    "version": "v1.0.0",
+    "title": "Initial Release",
+    "date": "2026-06-20",
+    "notes": [
+      "[color=#7ad4ff]• Game Release:[/color] Basic retro vertical shooter. Survive meteors as long as possible.",
+      "[color=#7ad4ff]• Leaderboards:[/color] Leaderboard scene with multi-page navigation and live ranks.",
+      "[color=#7ad4ff]• Upgrade shop:[/color]  Earn Flyons by playing and upgrade your ship."
+    ]
+  }
+]

@@ -61,6 +61,7 @@ game/
 │   ├── leaderboard.gd   ← Paginated leaderboard screen
 │   ├── options.gd       ← Audio, Fullscreen, and Touch Controls menu controller
 │   ├── credits.gd       ← Credits screen with expandable sections
+│   ├── patch_notes.gd   ← Patch notes screen with collapsible sections
 │   ├── how_to_play.gd   ← How to Play screen (WASD/arrows/shoot/leaderboard description)
 │   ├── touch_controls.gd ← Custom Control for dynamic joystick and shoot button
 │   └── ui.gd            ← HUD logic (including Now Playing popup)
@@ -280,6 +281,7 @@ start_menu.tscn → how_to_play.tscn   (How to Play button)
 start_menu.tscn → leaderboard.tscn   (Leaderboard button)
 start_menu.tscn → options.tscn       (Options button)
 start_menu.tscn → credits.tscn       (Credits button)
+start_menu.tscn → patch_notes.tscn   (Patch Notes button)
 start_menu.tscn → upgrade_shop.tscn  (Upgrades button)
 game_over.tscn  → upgrade_shop.tscn  (Go to Shop button)
 ```

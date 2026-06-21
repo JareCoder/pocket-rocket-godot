@@ -6,6 +6,7 @@ static var leaderboard_scene: PackedScene = load("res://Scenes/leaderboard.tscn"
 static var credits_scene: PackedScene = load("res://Scenes/credits.tscn")
 static var options_scene: PackedScene = load("res://Scenes/options.tscn")
 static var upgrade_shop_scene: PackedScene = load("res://Scenes/upgrade_shop.tscn")
+static var patch_notes_scene: PackedScene = load("res://Scenes/patch_notes.tscn")
 
 func _ready() -> void:
 	get_viewport().size_changed.connect(_on_viewport_size_changed)
@@ -54,3 +55,6 @@ func _on_credits_button_pressed() -> void:
 
 func _on_upgrades_button_pressed() -> void:
 	get_tree().change_scene_to_packed(upgrade_shop_scene)
+
+func _on_patch_notes_button_pressed() -> void:
+	get_tree().change_scene_to_packed(patch_notes_scene)
