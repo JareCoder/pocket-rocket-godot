@@ -137,14 +137,14 @@ func _fire_laser(pos: Vector2, angle_deg: float, perp_offset: float = 0.0) -> vo
 
 func _on_item_spawn_timer_timeout() -> void:
 	# Item drop thresholds increase with the item_drop_rate upgrade level.
-	# Shield: base chance ~18% (≤1 out of 0–10), each level +2 to threshold
-	# HP:     base chance ~5%  (≤0 out of 0–20), each level +1 to threshold
+	# Shield: base chance 20% (≤1 out of 0–10), each level +2 to threshold
+	# HP:     base chance 5%  (≤0 out of 0–20), each level +1 to threshold
 	var drop_level := Upgrades.get_level("item_drop_rate")
 	var shield_threshold := 1 + drop_level * 2
 	var hp_threshold     := 0 + drop_level
 	
-	var a: int = rng.randi_range(0, 10)
-	var b := rng.randi_range(0, 20)
+	var a: int = rng.randi_range(0, 9)
+	var b := rng.randi_range(0, 19)
 	
 	if (a <= shield_threshold):
 		var new_shield_item = _spawn_item(shield_item_scene)
