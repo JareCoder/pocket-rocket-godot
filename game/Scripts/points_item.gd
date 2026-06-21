@@ -42,11 +42,15 @@ func _ready() -> void:
 	# Multiples of 10, in the MIN–MAX range
 	_points = _rng.randi_range(MIN_POINTS / 10, MAX_POINTS / 10) * 10
 	# Travel direction: always more sideways than vertical (abs(x) > abs(y))
+	# Always take the longest route sideways off screen (opposite of spawn side)
+	var center_x := get_viewport_rect().size.x / 2.0
 	var angle: float
-	if _rng.randf() < 0.5:
-		angle = _rng.randf_range(-PI / 4.0, PI / 4.0)
-	else:
+	if position.x > center_x:
+		# Spawned on the right half -> move left
 		angle = _rng.randf_range(3.0 * PI / 4.0, 5.0 * PI / 4.0)
+	else:
+		# Spawned on the left half -> move right
+		angle = _rng.randf_range(-PI / 4.0, PI / 4.0)
 	_direction = Vector2(cos(angle), sin(angle))
 
 	%PointsLabel.text = str(_points)
