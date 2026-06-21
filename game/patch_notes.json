@@ -7,7 +7,9 @@
       "[color=#7ad4ff]• Fix Web Audio Stutter: [/color] No more freezing on song change",
       "[color=#7ad4ff]• Fix Dynamic Star Rendering:[/color] Fix background stars",
       "[color=#7ad4ff]• Fix Meteor Despawning:[/color] They don't despawn on screen anymore...",
-      "[color=#7ad4ff]• Point Ball Logic:[/color] No more ragebait. Point balls now travel the longest distance possible across the screen."
+      "[color=#7ad4ff]• Point Ball Logic:[/color] No more ragebait. Point balls now travel the longest distance possible across the screen.",
+      "[color=#7ad4ff]• Fix Anticheat:[/color] Fixed score checking on above 10k scores.",
+      "[color=#7ad4ff]• Added patch notes.[/color]"
     ]
   },
   {
