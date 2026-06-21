@@ -1,7 +1,8 @@
-extends AudioStreamPlayer
+extends Node
 
 var _playlist: Array[String] = []
 var _current_index: int = 0
+var _player_nodes: Dictionary = {}
 
 signal song_started(title: String)
 
@@ -13,9 +14,15 @@ const SONG_TITLES := {
 }
 
 func _ready() -> void:
-	bus = "GameMusic"
-	volume_db = -25.0
-	finished.connect(_on_finished)
+	# Instantiate dedicated child AudioStreamPlayers to avoid stream-swapping lag
+	for path in SONG_TITLES.keys():
+		var p := AudioStreamPlayer.new()
+		p.bus = "GameMusic"
+		p.volume_db = -25.0
+		p.stream = load(path)
+		add_child(p)
+		p.finished.connect(_on_finished)
+		_player_nodes[path] = p
 
 ## Builds a shuffled playlist from Settings.enabled_tracks and starts playback.
 func play_random() -> void:
@@ -33,9 +40,15 @@ func _build_playlist() -> void:
 func _play_current() -> void:
 	if _playlist.is_empty():
 		return
+		
+	# Stop all players first
+	for p in _player_nodes.values():
+		p.stop()
+		
 	var path = _playlist[_current_index]
-	stream = load(path)
-	play()
+	if _player_nodes.has(path):
+		_player_nodes[path].play()
+		
 	var title = SONG_TITLES.get(path, path.get_file().get_basename())
 	song_started.emit(title)
 
@@ -46,3 +59,7 @@ func _on_finished() -> void:
 		_current_index = 0
 		_playlist.shuffle()
 	_play_current()
+
+func stop() -> void:
+	for p in _player_nodes.values():
+		p.stop()
