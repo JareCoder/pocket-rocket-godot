@@ -1,6 +1,6 @@
 extends Node
 
-@export var lifetime: float = 5.0 
+@export var lifetime: float = 10.0 
 
 func _ready():
 	get_tree().create_timer(lifetime).timeout.connect(_on_timer_timeout)
