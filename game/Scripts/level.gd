@@ -45,12 +45,14 @@ func _ready():
 		$Player/Shield.visible = false
 	
 	# Spawn stars covering a large region so they remain visible when resized
+	rng.randomize()
 	for i in starAmount:
 		var star = star_scene.instantiate()
 		
-		var random_x = rng.randi_range(0, max(3840, int(size.x)))
-		var random_y = rng.randi_range(0, max(2160, int(size.y)))
-		star.position = Vector2(random_x, random_y)
+		# Store normalized coordinates so they adapt dynamically to any resolution
+		var norm_x := rng.randf()
+		var norm_y := rng.randf()
+		star.set_meta("norm_pos", Vector2(norm_x, norm_y))
 		
 		var random_scale = rng.randf_range(0.5, 2)
 		star.scale = Vector2(random_scale, random_scale)
@@ -194,6 +196,13 @@ func _spawn_item(sceneToSpawn):
 func _on_viewport_size_changed() -> void:
 	size = get_viewport().get_visible_rect().size
 	print("Viewport size changed: ", size)
+	
+	# Reposition stars dynamically to cover the viewport
+	if has_node("Stars"):
+		for star in $Stars.get_children():
+			if star.has_meta("norm_pos"):
+				var norm_pos: Vector2 = star.get_meta("norm_pos")
+				star.position = norm_pos * size
 	
 	# Reposition and resize borders (duplicate shapes to prevent shared resource issues)
 	if has_node("Borders/LeftWall"):
