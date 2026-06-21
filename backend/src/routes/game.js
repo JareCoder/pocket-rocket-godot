@@ -95,8 +95,9 @@ router.post('/end', (req, res) => {
   
   const BASE_SCORE_PER_SECOND = parseInt(process.env.BASE_SCORE_PER_SECOND || '10', 10);
   const ITEM_BONUS_GRACE = parseInt(process.env.ITEM_BONUS_GRACE || '500', 10);
+  const MAX_ORB_RATE_PER_SECOND = 20; // Allowable points rate from collectibles (orbs)
   
-  const maxAllowedScore = Math.floor(elapsedSeconds * BASE_SCORE_PER_SECOND)
+  const maxAllowedScore = Math.floor(elapsedSeconds * (BASE_SCORE_PER_SECOND + MAX_ORB_RATE_PER_SECOND))
                         + ITEM_BONUS_GRACE
                         + (GRACE_SECONDS * BASE_SCORE_PER_SECOND);
 
